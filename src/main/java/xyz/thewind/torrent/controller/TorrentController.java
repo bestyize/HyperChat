@@ -48,7 +48,7 @@ public class TorrentController {
         TorrentConfigResponse resp = new TorrentConfigResponse();
         resp.setResult(DataSourceFactory.INSTANCE.getSupportSources());
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Type", "text");
+        headers.add("Content-Type", "application/json");
         return new ResponseEntity<>(resp, headers, HttpStatus.OK);
     }
 
