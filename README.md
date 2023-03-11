@@ -33,13 +33,13 @@ TorrentSearchResponse
 | 项目   | 取值                                         | 备注                |
 |------|--------------------------------------------|-------------------|
 | api  | https://thewind.xyz/torrent/api/magnetlink | 接口地址              |
-| src  | 0 、1 、2、3、4                                | 搜索源               |
+| src  | 0、1、2、3、4                                  | 搜索源               |
 | link | 字符串                                        | 详情页网址,需要URLEncode |
 
 接口示例
 
 ```html
-https://thewind.xyz/torrent/api/magnetlink?src=0&link=xxx
+https://localhost:8443/torrent/api/magnetlink?src=3&link=https%3A%2F%2Fbtsow.com%2Fmagnet%2Fdetail%2Fhash%2F2F3A1C0F3F6E66DEC57CA38DFE60664BF1EAB5DA
 ```
 
 返回值

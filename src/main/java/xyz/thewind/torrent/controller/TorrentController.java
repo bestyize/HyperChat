@@ -29,18 +29,18 @@ public class TorrentController {
 
     @RequestMapping("/torrent/api/magnetlink")
     public ResponseEntity<TorrentUrlResponse> getMagnetLink(Integer src, String link) {
+        TorrentUrlResponse resp = new TorrentUrlResponse();
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json");
         if (link == null) {
-            return new ResponseEntity<>(new TorrentUrlResponse(), headers, HttpStatus.OK);
+            return new ResponseEntity<>(resp, headers, HttpStatus.OK);
         }
         if (src == null) {
             src = 0;
         }
         String url = DataSourceFactory.INSTANCE.newService(src).findMagnetUrl(link);
-        TorrentUrlResponse resp = new TorrentUrlResponse();
         resp.setResult(url);
-        return new ResponseEntity<>(new TorrentUrlResponse(), headers, HttpStatus.OK);
+        return new ResponseEntity<>(resp, headers, HttpStatus.OK);
     }
 
     @RequestMapping("/torrent/api/supportsource")
