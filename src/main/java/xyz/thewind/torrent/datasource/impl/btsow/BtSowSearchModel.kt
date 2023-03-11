@@ -1,4 +1,4 @@
-package xyz.thewind.torrent.datasource.impl.btshow
+package xyz.thewind.torrent.datasource.impl.btsow
 
 import xyz.thewind.torrent.datasource.impl.base.TorrentSearchModel
 import xyz.thewind.torrent.model.TorrentInfo
@@ -7,10 +7,10 @@ import xyz.thewind.global.util.HttpUtil.get
 import xyz.thewind.torrent.datasource.def.*
 
 private const val TAG = "BtShowSearchModel"
+// https://btsow.com/search
+private const val BASE_SEARCH_URL = "https://btsow.com/search/$KEY_REPLACE_WORD/page/$KEY_REPLACE_PAGE"
 
-private const val BASE_SEARCH_URL = "https://btsow.beauty/search/$KEY_REPLACE_WORD/page/$KEY_REPLACE_PAGE"
-
-object BtShowSearchModel: TorrentSearchModel {
+object BtSowSearchModel: TorrentSearchModel {
     override fun searchParse(key: String, page: Int): List<TorrentInfo> {
         val originUrl = BASE_SEARCH_URL.replace(KEY_REPLACE_WORD, key.urlEncode()).replace(KEY_REPLACE_PAGE, page.toString())
         val content = get(getMirrorSite(originUrl))
@@ -49,7 +49,7 @@ object BtShowSearchModel: TorrentSearchModel {
                     this.detailUrl = link
                     this.date = date
                     this.size = size
-                    this.src = TorrentSrc.BT_SHOW.ordinal
+                    this.src = TorrentSrc.BT_SOW.ordinal
                 })
             }
         } catch (e : Exception) {

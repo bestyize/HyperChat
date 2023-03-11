@@ -15,6 +15,6 @@ enum class TorrentSrc {
     ZERO_MAGNET,
     TOR_LOCK,
     X_1337,
-    BT_SHOW,
+    BT_SOW,
     YU_HUA_GE
 }

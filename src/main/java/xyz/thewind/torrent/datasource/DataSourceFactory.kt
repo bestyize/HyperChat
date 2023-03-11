@@ -1,6 +1,6 @@
 package xyz.thewind.torrent.datasource
 
-import com.speaker.torrent.datasource.impl.btshow.BtShowSearchService
+import com.speaker.torrent.datasource.impl.btshow.BtSowSearchService
 import xyz.thewind.torrent.datasource.def.TorrentSrc
 import xyz.thewind.torrent.datasource.impl.base.TorrentSearchService
 import xyz.thewind.torrent.datasource.impl.torlock.TorLockSearchService
@@ -15,7 +15,7 @@ object DataSourceFactory {
         put(TorrentSrc.ZERO_MAGNET.ordinal, ZeroMagnetSearchService())
         put(TorrentSrc.X_1337.ordinal, X1337SearchService())
         put(TorrentSrc.TOR_LOCK.ordinal, TorLockSearchService())
-        put(TorrentSrc.BT_SHOW.ordinal, BtShowSearchService())
+        put(TorrentSrc.BT_SOW.ordinal, BtSowSearchService())
         put(TorrentSrc.YU_HUA_GE.ordinal, YuHuaGeSearchService())
     }}
 
@@ -47,8 +47,8 @@ object DataSourceFactory {
             })
             add(TorrentSource().apply {
                 src = TorrentSrc.TOR_LOCK.ordinal
-                title = "BtShow"
-                officialUrl = "https://btsow.beauty"
+                title = "BtSow"
+                officialUrl = "https://btsow.com"
             })
             add(TorrentSource().apply {
                 src = TorrentSrc.TOR_LOCK.ordinal
