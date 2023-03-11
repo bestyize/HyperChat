@@ -46,12 +46,12 @@ object DataSourceFactory {
                 officialUrl = "https://www.torlock.com"
             })
             add(TorrentSource().apply {
-                src = TorrentSrc.TOR_LOCK.ordinal
+                src = TorrentSrc.BT_SOW.ordinal
                 title = "BtSow"
                 officialUrl = "https://btsow.com"
             })
             add(TorrentSource().apply {
-                src = TorrentSrc.TOR_LOCK.ordinal
+                src = TorrentSrc.YU_HUA_GE.ordinal
                 title = "雨花阁"
                 officialUrl = "https://www.yuhuage.win/"
             })
