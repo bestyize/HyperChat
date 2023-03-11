@@ -1,6 +1,6 @@
 package xyz.thewind.music.network.proxy;
 
-import xyz.thewind.music.network.util.HttpUtil;
+import xyz.thewind.global.util.HttpUtil;
 import xyz.thewind.music.util.WLog;
 
 import java.io.*;

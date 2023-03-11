@@ -1,6 +1,6 @@
 package xyz.thewind.music.music.impl.kg.module;
 
-import xyz.thewind.music.network.util.HttpUtil;
+import xyz.thewind.global.util.HttpUtil;
 import xyz.thewind.music.util.Md5Encrypt;
 import xyz.thewind.music.util.WLog;
 

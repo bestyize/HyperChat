@@ -1,9 +1,8 @@
 package xyz.thewind.music.music.impl.mg.enc;
 
-import xyz.thewind.music.network.util.HttpUtil;
+import xyz.thewind.global.util.HttpUtil;
 import xyz.thewind.music.util.Base64Util;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.*;

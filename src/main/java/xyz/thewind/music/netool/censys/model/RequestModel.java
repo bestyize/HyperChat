@@ -6,7 +6,7 @@ import xyz.thewind.music.netool.censys.bean.search.HostInfo;
 import xyz.thewind.music.netool.censys.bean.search.HostService;
 import xyz.thewind.music.netool.censys.bean.search.SearchHostResponse;
 import xyz.thewind.music.netool.censys.config.CensysConfig;
-import xyz.thewind.music.network.util.HttpUtil;
+import xyz.thewind.global.util.HttpUtil;
 import xyz.thewind.music.util.GsonUtil;
 import xyz.thewind.music.util.WLog;
 

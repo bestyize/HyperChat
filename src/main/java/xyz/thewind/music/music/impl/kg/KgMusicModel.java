@@ -14,7 +14,7 @@ import xyz.thewind.music.music.impl.kg.bean.search.SongDetail;
 import xyz.thewind.music.music.impl.kg.module.RequestModule;
 import xyz.thewind.music.util.Base64Util;
 import xyz.thewind.music.util.GsonUtil;
-import xyz.thewind.music.network.util.HttpUtil;
+import xyz.thewind.global.util.HttpUtil;
 
 import java.net.Proxy;
 import java.util.*;
