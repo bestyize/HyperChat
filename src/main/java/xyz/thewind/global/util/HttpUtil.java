@@ -1,4 +1,4 @@
-package xyz.thewind.music.network.util;
+package xyz.thewind.global.util;
 
 import xyz.thewind.music.network.config.HttpDefine;
 import xyz.thewind.music.util.WLog;
@@ -29,8 +29,8 @@ public class HttpUtil {
             URL url = new URL(link);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
-            conn.setReadTimeout(4000);
-            conn.setConnectTimeout(4000);
+            conn.setReadTimeout(5000);
+            conn.setConnectTimeout(5000);
             if (headerMap != null) {
                 for (String key : headerMap.keySet()) {
                     conn.addRequestProperty(key, headerMap.get(key));

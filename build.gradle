@@ -48,6 +48,9 @@ dependencies {
     // https://mvnrepository.com/artifact/redis.clients/jedis
     implementation 'redis.clients:jedis:4.4.0-m2'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    // https://mvnrepository.com/artifact/org.jsoup/jsoup
+    implementation 'org.jsoup:jsoup:1.15.4'
+
 
 
 }

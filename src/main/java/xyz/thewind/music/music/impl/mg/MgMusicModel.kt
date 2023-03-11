@@ -8,7 +8,7 @@ import xyz.thewind.music.music.impl.mg.bean.LyricResponseBean
 import xyz.thewind.music.music.impl.mg.bean.MgDownloadBean
 import xyz.thewind.music.music.impl.mg.bean.search.MgSearchResp
 import xyz.thewind.music.music.impl.mg.enc.MgEncrypt
-import xyz.thewind.music.network.util.HttpUtil
+import xyz.thewind.global.util.HttpUtil
 import xyz.thewind.music.util.GsonUtil
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets

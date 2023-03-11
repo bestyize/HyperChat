@@ -16,7 +16,7 @@ import xyz.thewind.music.music.impl.qq.bean.search.Album;
 import xyz.thewind.music.music.impl.qq.bean.search.SearchResponse;
 import xyz.thewind.music.music.impl.qq.bean.search.Singer;
 import xyz.thewind.music.music.impl.qq.bean.search.SongDetail;
-import xyz.thewind.music.network.util.HttpUtil;
+import xyz.thewind.global.util.HttpUtil;
 import xyz.thewind.music.util.Base64Util;
 import xyz.thewind.music.util.GsonUtil;
 

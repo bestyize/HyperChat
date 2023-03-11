@@ -4,7 +4,7 @@ import xyz.thewind.music.music.common.MusicCommonConfig;
 import xyz.thewind.music.music.common.MusicConfigManager;
 import xyz.thewind.music.music.impl.kw.bean.download.DownloadResp;
 import xyz.thewind.music.music.impl.kw.enc.KwEncrypt;
-import xyz.thewind.music.network.util.HttpUtil;
+import xyz.thewind.global.util.HttpUtil;
 import xyz.thewind.music.util.GsonUtil;
 
 import java.util.HashMap;
