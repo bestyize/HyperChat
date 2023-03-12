@@ -194,7 +194,7 @@
         formData.append('src', songSrc);
         formData.append('quality', quality);
         $.ajax({
-            url: '/api/next/download',
+            url: '/music/api/download',
             type: 'POST',
             cache: false,
             data: formData,
@@ -213,7 +213,7 @@
         formData.append('src', songSrc);
         formData.append('quality', quality);
         $.ajax({
-            url: '/api/next/download',
+            url: '/music/api/download',
             type: 'POST',
             cache: false,
             data: formData,
@@ -284,7 +284,7 @@
         formData.append('keyword', keyword);
         formData.append('num', num);
         $.ajax({
-            url: '/api/next/search',
+            url: '/music/api/search',
             type: 'POST',
             cache: false,
             data: formData,

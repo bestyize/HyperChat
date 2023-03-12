@@ -28,8 +28,8 @@ public class MusicController {
     @Autowired
     private RedisService redisService;
 
-    @AccessLimit(hours = 6, maxCount = 25)
-    @RequestMapping("/api/next/download")
+    @AccessLimit(hours = 6, maxCount = 10)
+    @RequestMapping("/music/api/download")
     public ResponseEntity<String> download(String songid, String quality, String src, String batch) {
         String response;
         HttpHeaders headers = new HttpHeaders();
@@ -48,8 +48,8 @@ public class MusicController {
         return new ResponseEntity<>(response, headers, HttpStatus.OK);
     }
 
-    @AccessLimit(hours = 6, maxCount = 25)
-    @RequestMapping("/api/next/search")
+    @AccessLimit(hours = 6, maxCount = 10)
+    @RequestMapping("/music/api/search")
     public ResponseEntity<List<SongBean>> search(String keyword, String num, String page, String src) {
         redisService.increment(DataUtils.getTodayStr(), 1);
         String songSrc = MusicConfigManager.getInstance().getSongSrc();
@@ -60,8 +60,8 @@ public class MusicController {
         return new ResponseEntity<>(musicDispatcher.searchDispatcher(src, keyword, NumberHelper.parseNumber(num, 10), NumberHelper.parseNumber(page, 0)), HttpStatus.OK);
     }
 
-    @AccessLimit(hours = 6, maxCount = 25)
-    @RequestMapping("/api/next/searchdown")
+    @AccessLimit(hours = 6, maxCount = 10)
+    @RequestMapping("/music/api/searchdown")
     public ResponseEntity<List<SongBean>> searchDown(String keyword, String num, String src) {
         String songSrc = MusicConfigManager.getInstance().getSongSrc();
         if (songSrc != null && songSrc.length() > 0) {
@@ -71,8 +71,8 @@ public class MusicController {
         return new ResponseEntity<>(songBeanList, HttpStatus.OK);
     }
 
-    @AccessLimit(hours = 6, maxCount = 25)
-    @RequestMapping("/api/getlyric")
+    @AccessLimit(hours = 6, maxCount = 10)
+    @RequestMapping("/music/api/getlyric")
     public ResponseEntity<String> searchLyric(String songid, String src) {
         String songSrc = MusicConfigManager.getInstance().getSongSrc();
         if (songSrc != null && songSrc.length() > 0) {
@@ -82,7 +82,7 @@ public class MusicController {
     }
 
     @AccessLimit(hours = 6, maxCount = 25)
-    @RequestMapping("/api/next/player")
+    @RequestMapping("/music/api/player")
     public ResponseEntity<List<PlayerBean>> player(String shareId) {
         List<PlayerBean> playerBeanList = new ArrayList<>();
         if (shareId == null) {
@@ -93,6 +93,7 @@ public class MusicController {
             return new ResponseEntity<>(playerBeanList, HttpStatus.OK);
         }
         String songSrc = pair[0];
+        songSrc = MusicConfigManager.getInstance().getSongSrc();
         String songId = pair[1];
         SongBean bean = musicDispatcher.downloadDispatcher(songSrc, songId, "PQ");
         if (bean == null) {
