@@ -1,7 +1,9 @@
 package xyz.thewind.music.interceptor;
 
+import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
@@ -18,7 +20,7 @@ public class RequestInterceptor implements HandlerInterceptor {
     private StringRedisTemplate redisTemplate;
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+    public boolean preHandle(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull Object handler) {
         try {
             if (handler instanceof HandlerMethod handlerMethod) {
                 AccessLimit accessLimit = handlerMethod.getMethodAnnotation(AccessLimit.class);
@@ -58,7 +60,7 @@ public class RequestInterceptor implements HandlerInterceptor {
         response.setContentType("application/json; charset=utf-8");
         // R.fail 是接口响应统一封装返回
         try {
-            response.getWriter().println("{\"err_code\":-1,\"msg\":\"为缓解服务器压力，已对您的ip进行了限制，请12小时后重试, 请关注公众号查看最新动态\"}");
+            response.getWriter().println("{\"err_code\":-1,\"msg\":\"为缓解服务器压力，已对您的ip进行了限制，请6小时后重试, 请关注公众号查看最新动态\"}");
         } catch (IOException ignored) {
 
         }

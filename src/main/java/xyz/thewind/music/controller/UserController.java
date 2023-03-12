@@ -29,10 +29,10 @@ import java.util.List;
 @RestController
 public class UserController {
 
-    @Resource
+    @Autowired
     private RedisService redisService;
 
-    @Resource
+    @Autowired
     private UserService userService;
 
     @RequestMapping("/api/reg")
