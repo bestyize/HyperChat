@@ -12,9 +12,10 @@ const val MIRROR_SITE = "http://178.62.14.173/t_api/dm/engine/crp/basic_mirror.p
 
 
 enum class TorrentSrc {
+    YU_HUA_GE,
+    ACG_RIP,
     ZERO_MAGNET,
-    TOR_LOCK,
     X_1337,
     BT_SOW,
-    YU_HUA_GE
+    TOR_LOCK
 }

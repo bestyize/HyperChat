@@ -12,18 +12,54 @@ object TorrentEditor {
 
     private const val NOTICE = "[洗白by]thewind.xyz-"
 
-    private val editor by lazy {
+    private val byteEditor by lazy {
         Bencode(StandardCharsets.UTF_8, true)
     }
 
-    fun decodeTorrentFileToMap(path: String): MutableMap<String, Any?> {
+    private val textEditor by lazy {
+        Bencode()
+    }
+
+    fun parseTorrentFile(filePath: String): TorrentSimpleInfo {
+        val map = decodeTorrentFileToMap(filePath, true)
+        val torrentSimpleInfo = TorrentSimpleInfo()
+        torrentSimpleInfo.createDate = (map[TorrentFileKeyDefine.CREATE_DATE.key] as? Long) ?: 0L
+        map[TorrentFileKeyDefine.INFO.key]?.let {info ->
+            val infoMap = (info as? HashMap<String, Any>) ?: java.util.HashMap<String, Any>()
+            val nameStr = infoMap[TorrentFileKeyDefine.NAME.key] as? String ?: ""
+            torrentSimpleInfo.torrentTitle = nameStr
+
+            val files = infoMap[TorrentFileKeyDefine.FILES.key] as? ArrayList<HashMap<String, Any>>
+                ?: ArrayList()
+            files.forEachIndexed { index, torrentFileInfo ->
+                val wsList = (torrentFileInfo[TorrentFileKeyDefine.PATH.key] as? ArrayList<String>) ?: ArrayList()
+                val len = (torrentFileInfo[TorrentFileKeyDefine.LENGTH.key] as? Long) ?: 0L
+                TorrentFileSimpleInfo().apply {
+                    this.name = if (wsList.size > 0) wsList[0] else ""
+                    this.size = len
+                    this.index = index
+                }.let {
+                    if (!it.name.isNullOrBlank() && it.name?.contains("_padding_file") != true) {
+                        torrentSimpleInfo.filesList.add(it)
+                    }
+                }
+
+
+
+            }
+        }
+        return torrentSimpleInfo
+    }
+
+
+    fun decodeTorrentFileToMap(path: String, useTextEditor:Boolean = false): MutableMap<String, Any?> {
         val map = mutableMapOf<String, Any?>()
         val file = File(path)
         if (!file.exists()) {
             return map
         }
         val bArr = FileUtils.readFileToByteArray(file)
-        return editor.decode(bArr, DICTIONARY)
+        return if (useTextEditor) textEditor.decode(bArr, DICTIONARY) else byteEditor.decode(bArr, DICTIONARY)
     }
 
     fun saveTorrentFile(map: MutableMap<String, Any?>, fullPath: String) {
@@ -31,7 +67,7 @@ object TorrentEditor {
         if (!file.parentFile.exists()) {
             file.parentFile.mkdirs()
         }
-        FileUtils.writeByteArrayToFile(file, editor.encode(map))
+        FileUtils.writeByteArrayToFile(file, byteEditor.encode(map))
     }
 
     fun washTorrent(map: MutableMap<String, Any>): MutableMap<String, Any> {
@@ -77,6 +113,18 @@ object TorrentEditor {
         return nameStr.encodeToByteArray()
     }
 
+}
+
+class TorrentSimpleInfo {
+    var torrentTitle: String?= ""
+    var createDate: Long = 0L
+    var filesList: MutableList<TorrentFileSimpleInfo> = mutableListOf()
+}
+
+class TorrentFileSimpleInfo {
+    var name: String ?= ""
+    var size: Long = 0L
+    var index: Int = 0
 }
 
 enum class TorrentFileKeyDefine(val key: String) {
