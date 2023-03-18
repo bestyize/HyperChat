@@ -28,7 +28,7 @@ object AcgRipSearchModel: TorrentSearchModel {
                     val title = ele.getElementsByClass("title").text()
                     val size = ele.getElementsByClass("size").text()
                     val torrentFileUrl = BASE_URL + ele.getElementsByClass("action")[0].getElementsByTag("a")[0].attr("href")
-                    val detailUrl = torrentFileUrl.replace(".torrent", "")
+                    val detailUrl = torrentFileUrl
                     res.add(TorrentInfo().apply {
                         this.detailUrl = detailUrl
                         this.src = TorrentSrc.ACG_RIP.ordinal
