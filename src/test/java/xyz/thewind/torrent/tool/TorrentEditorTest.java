@@ -27,4 +27,14 @@ public class TorrentEditorTest {
         System.out.println(JsonUtilsKt.toJson(infos));
     }
 
+    @Test
+    public void testBay() {
+        List<TorrentInfo> infos = DataSourceFactory.INSTANCE.newService(TorrentSrc.PIRATE_BAY.ordinal()).search("ida pro", 1);
+
+        System.out.println(JsonUtilsKt.toJson(infos));
+
+        String magnet = DataSourceFactory.INSTANCE.newService(TorrentSrc.PIRATE_BAY.ordinal()).findMagnetUrl("https://thepiratebay.party/torrent/12499831/MICROSOFT_Office_PRO_Plus_2016_v16.0.4266.1003_RTM___Activator");
+
+        System.out.println(magnet);
+    }
 }
