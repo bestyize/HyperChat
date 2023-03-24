@@ -37,4 +37,19 @@ public class TorrentEditorTest {
 
         System.out.println(magnet);
     }
+    @Test
+    public void testYuHuaGe() {
+        List<TorrentInfo> infos = DataSourceFactory.INSTANCE.newService(TorrentSrc.YU_HUA_GE.ordinal()).search("口", 1);
+
+        System.out.println(JsonUtilsKt.toJson(infos));
+
+        for (TorrentInfo info: infos) {
+            String magnet = DataSourceFactory.INSTANCE.newService(TorrentSrc.YU_HUA_GE.ordinal()).findMagnetUrl(info.getDetailUrl());
+
+            System.out.println(magnet);
+        }
+
+
+    }
+
 }

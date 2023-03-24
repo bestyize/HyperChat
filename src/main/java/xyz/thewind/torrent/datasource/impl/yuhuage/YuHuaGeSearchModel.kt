@@ -32,7 +32,8 @@ object YuHuaGeSearchModel : TorrentSearchModel {
         try {
             val paramsMap = mutableMapOf(
                 "Referrer Policy" to "strict-origin-when-cross-origin",
-                "user-agent" to "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36"
+                "user-agent" to "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36",
+                "cookie" to "counter=9; _gid=GA1.2.846071559.1679670300; PHPSESSID=bnu67jhrb3moqmnbvsbtdjbsq1; counter=2; __atuvc=4|12; __atuvs=641dbd64564c515e003; _gat_gtag_UA_116935724_1=1; _ga=GA1.1.1502102608.1679670300; _ga_EN97WRPCXC=GS1.1.1679670300.1.1.1679671020.0.0.0"
             )
             return Jsoup.parse(get(link, paramsMap)).body().getElementsByClass("download")[0].attr("href")
         } catch (e: Exception) {
