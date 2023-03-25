@@ -16,7 +16,7 @@ public class TorrentEditorTest {
     public void testParseFile() {
         String path = "/home/read/Desktop/torr/1661216054.torrent";
         Map<String, Object> map = TorrentEditor.INSTANCE.decodeTorrentFileToMap(path, true);
-        //TorrentEditor.INSTANCE.saveTorrentFile(TorrentEditor.INSTANCE.washTorrent(map), "/home/read/Desktop/torr/wash_1661216054.torrent");
+        TorrentEditor.INSTANCE.saveTorrentFile(TorrentEditor.INSTANCE.washTorrent(map), "/home/read/Desktop/torr/wash_1661216054.torrent");
         System.out.println(JsonUtilsKt.toJson(TorrentEditor.INSTANCE.parseTorrentFile(path)));
     }
 
@@ -53,7 +53,7 @@ public class TorrentEditorTest {
 
     @Test
     public void testSolidTorrent() {
-        List<TorrentInfo> infos = DataSourceFactory.INSTANCE.newService(TorrentSrc.SOLID_TORRENT.ordinal()).search("流浪地球", 1);
+        List<TorrentInfo> infos = DataSourceFactory.INSTANCE.newService(TorrentSrc.SOLID_TORRENT.ordinal()).search("love", 1);
 
         System.out.println(JsonUtilsKt.toJson(infos));
 

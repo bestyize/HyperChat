@@ -15,12 +15,13 @@ private const val BASE_HOST = "https://solidtorrent.to"
 object SolidTorrentSearchModel : TorrentSearchModel {
     override fun searchParse(key: String, page: Int): List<TorrentInfo> {
         val list = mutableListOf<TorrentInfo>()
-        try {
-            val content = HttpUtil.get(
-                BASE_SEARCH_URL.replace(KEY_REPLACE_WORD, key.urlEncode()).replace(KEY_REPLACE_PAGE, page.toString())
-            )
-            val resList = Jsoup.parse(content).body().getElementsByClass("search-result")
-            resList.forEach { ele ->
+
+        val content = HttpUtil.get(
+            BASE_SEARCH_URL.replace(KEY_REPLACE_WORD, key.urlEncode()).replace(KEY_REPLACE_PAGE, page.toString())
+        )
+        val resList = Jsoup.parse(content).body().getElementsByClass("search-result")
+        resList.forEach { ele ->
+            try {
                 val detailUrl = BASE_HOST + ele.getElementsByTag("h5")[0].getElementsByAttribute("href")[0].attr("href")
                 val title = ele.getElementsByTag("h5")[0].getElementsByAttribute("href")[0].text()
                 val stats = ele.getElementsByClass("stats")[0]
@@ -45,11 +46,13 @@ object SolidTorrentSearchModel : TorrentSearchModel {
                     this.senderCount = senderCount
                 })
 
+            } catch (_: Exception) {
+
             }
 
-        } catch (_: Exception) {
-
         }
+
+
         return list
     }
 
