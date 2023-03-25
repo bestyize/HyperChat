@@ -3,14 +3,13 @@ package xyz.thewind.torrent.model
 class TorrentInfo {
     var detailUrl: String = ""
     var magnetUrl: String = ""
+    var torrentUrl: String = ""
     var title: String = ""
     var date: String = ""
     var size: String = ""
     var src: Int = 0
-    var torrentItems = ArrayList<TorrentItem>()
-}
+    var downloadCount: String = ""
+    var senderCount: String = ""
+    var leacherCount: String = ""
 
-class TorrentItem {
-    var fileName: String ?= null
-    var fileSize: String ?= null
 }

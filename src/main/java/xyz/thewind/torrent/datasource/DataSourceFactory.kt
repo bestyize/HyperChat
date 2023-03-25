@@ -5,6 +5,7 @@ import xyz.thewind.torrent.datasource.def.TorrentSrc
 import xyz.thewind.torrent.datasource.impl.acgrip.AcgRipSearchService
 import xyz.thewind.torrent.datasource.impl.base.TorrentSearchService
 import xyz.thewind.torrent.datasource.impl.piratebay.PirateBaySearchService
+import xyz.thewind.torrent.datasource.impl.solidtorrent.SolidTorrentSearchService
 import xyz.thewind.torrent.datasource.impl.torlock.TorLockSearchService
 import xyz.thewind.torrent.datasource.impl.x1337.X1337SearchService
 import xyz.thewind.torrent.datasource.impl.yuhuage.YuHuaGeSearchService
@@ -21,6 +22,7 @@ object DataSourceFactory {
         put(TorrentSrc.BT_SOW.ordinal, BtSowSearchService())
         put(TorrentSrc.YU_HUA_GE.ordinal, YuHuaGeSearchService())
         put(TorrentSrc.ACG_RIP.ordinal, AcgRipSearchService())
+        put(TorrentSrc.SOLID_TORRENT.ordinal, SolidTorrentSearchService())
     }}
 
     fun newService(torrentSrc: Int = TorrentSrc.ZERO_MAGNET.ordinal) : TorrentSearchService {
@@ -35,24 +37,20 @@ object DataSourceFactory {
     private val supportList by lazy {
         mutableListOf<TorrentSource>().apply {
             add(TorrentSource().apply {
-                src = TorrentSrc.YU_HUA_GE.ordinal
-                title = "雨花阁"
-                officialUrl = "https://www.yuhuage.win/"
+                src = TorrentSrc.SOLID_TORRENT.ordinal
+                title = "Solid"
+                officialUrl = "https://solidtorrent.to"
             })
             add(TorrentSource().apply {
-                src = TorrentSrc.PIRATE_BAY.ordinal
-                title = "海盗湾"
+                src = TorrentSrc.BT_SOW.ordinal
+                title = "BtSow"
+                officialUrl = "https://btsow.com"
             })
             add(TorrentSource().apply {
                 src = TorrentSrc.ZERO_MAGNET.ordinal
                 title = "Zero"
                 desc = "ZeroMagnet"
                 officialUrl = "https://0magnet.com"
-            })
-            add(TorrentSource().apply {
-                src = TorrentSrc.BT_SOW.ordinal
-                title = "BtSow"
-                officialUrl = "https://btsow.com"
             })
             add(TorrentSource().apply {
                 src = TorrentSrc.ACG_RIP.ordinal
@@ -64,11 +62,20 @@ object DataSourceFactory {
                 title = "1337"
                 officialUrl = "https://www.1337xx.to"
             })
+            add(TorrentSource().apply {
+                src = TorrentSrc.PIRATE_BAY.ordinal
+                title = "海盗湾"
+            })
+            add(TorrentSource().apply {
+                src = TorrentSrc.TOR_LOCK.ordinal
+                title = "TorLock"
+                officialUrl = "https://www.torlock.com"
+            })
 
 //            add(TorrentSource().apply {
-//                src = TorrentSrc.TOR_LOCK.ordinal
-//                title = "TorLock"
-//                officialUrl = "https://www.torlock.com"
+//                src = TorrentSrc.YU_HUA_GE.ordinal
+//                title = "雨花阁"
+//                officialUrl = "https://www.yuhuage.win/"
 //            })
 
         }

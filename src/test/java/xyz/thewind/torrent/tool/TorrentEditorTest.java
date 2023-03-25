@@ -49,7 +49,18 @@ public class TorrentEditorTest {
             System.out.println(magnet);
         }
 
-
     }
 
+    @Test
+    public void testSolidTorrent() {
+        List<TorrentInfo> infos = DataSourceFactory.INSTANCE.newService(TorrentSrc.SOLID_TORRENT.ordinal()).search("流浪地球", 1);
+
+        System.out.println(JsonUtilsKt.toJson(infos));
+
+        for (TorrentInfo info: infos) {
+            String magnet = DataSourceFactory.INSTANCE.newService(TorrentSrc.SOLID_TORRENT.ordinal()).findMagnetUrl(info.getDetailUrl());
+
+            System.out.println(magnet);
+        }
+    }
 }
