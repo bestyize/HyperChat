@@ -3,17 +3,24 @@ package xyz.thewind.user.database.service;
 import jakarta.annotation.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import xyz.thewind.user.database.bean.User;
 import xyz.thewind.user.database.repo.UserRepository;
 
+@Service
 @Component
 @Transactional(propagation = Propagation.REQUIRED)
 public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository repo;
+
+    @Override
+    public User createUser(User user) {
+        return repo.save(user);
+    }
 
     @Override
     public boolean isExits(long uid) {
@@ -23,7 +30,31 @@ public class UserServiceImpl implements UserService {
     @Override
     @Nullable
     public User findUserByUid(long uid) {
-        return repo.findFirstByUid(uid);
+        User u = repo.findTopByUid(uid);
+        if (u == null) return null;
+        u.setToken("");
+        return u;
+    }
+
+    @Override
+    public User findUserByName(String userName) {
+        User u = repo.findTopByUserName(userName);
+        if (u == null) return null;
+        u.setToken("");
+        return u;
+    }
+
+    @Override
+    public User findUserByOpenId(String openId) {
+        User u = repo.findTopByOpenId(openId);
+        if (u == null) return null;
+        u.setToken("");
+        return u;
+    }
+
+    @Override
+    public User loginByUidAndToken(long uid, String token) {
+        return repo.findTopByUidAndToken(uid, token);
     }
 
     @Override

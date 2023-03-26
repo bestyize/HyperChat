@@ -1,5 +1,7 @@
 package xyz.thewind.user.controller
 
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.redis.core.StringRedisTemplate
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -8,10 +10,14 @@ import xyz.thewind.user.model.wx.WxReceiveMessage
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 
 @RestController
 class UserController {
+
+    @Autowired
+    private val redisTemplate: StringRedisTemplate? = null
 
     @GetMapping("/api/wechat/wx")
     fun wxTokenVerify(
@@ -36,20 +42,34 @@ class UserController {
             fromUserName = message.toUserName
         )
         return assembleReplayData(
-            hitMusic(message.content),
+            hitMusic(message.content, message.fromUserName),
             toUserName = message.fromUserName,
             fromUserName = message.toUserName
         )
     }
 
 
-    private fun hitMusic(text: String): String {
+    private fun hitMusic(text: String, openId: String): String {
         return when {
             text.contains("音乐") || text.contains("教程") || text.contains("无名") -> "教程:https://mp.weixin.qq.com/s/-W13vOAK7hicZ6aYq3ifYQ"
-            text.contains("验证码") -> "12345"
-            text.contains("重置密码") -> ""
+            text.contains("限制") -> "因站点访问量过大，需要限制流量，触发IP限制的时长为6小时，您可以在六小时后重试，或者切换网络改变IP"
+            text.contains("验证码") || text.contains("重置密码") -> {
+                var code = rand(100000, 999999).toString()
+                var retryTime = 5
+                while (redisTemplate?.opsForValue()?.get(code) != null && retryTime > 0) {
+                    code = rand(100000, 999999).toString()
+                    retryTime--
+                }
+                redisTemplate?.opsForValue()?.set(code, openId, 10, TimeUnit.MINUTES)
+                "您的验证码是:$code, 10分钟内有效"
+            }
             else -> "QQ群:972084185"
         }
+    }
+
+    private fun rand(start: Int, end: Int): Int {
+        require(start <= end) { "Illegal Argument" }
+        return (start..end).random()
     }
 
 

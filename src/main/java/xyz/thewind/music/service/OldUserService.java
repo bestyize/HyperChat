@@ -5,7 +5,7 @@ import xyz.thewind.music.model.OldUser;
 
 import java.util.List;
 
-public interface UserService {
+public interface OldUserService {
     boolean exists(String userId);
 
     boolean existsEmail(String email);

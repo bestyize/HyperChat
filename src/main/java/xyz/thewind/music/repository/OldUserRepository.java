@@ -11,7 +11,7 @@ import xyz.thewind.music.model.OldUser;
 import java.util.List;
 
 @Repository
-public interface UserRepository extends JpaRepository<OldUser, Long>, JpaSpecificationExecutor<OldUser> {
+public interface OldUserRepository extends JpaRepository<OldUser, Long>, JpaSpecificationExecutor<OldUser> {
     OldUser findTopByUserId(String userId);
 
     OldUser findTopByEmail(String email);

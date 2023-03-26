@@ -15,7 +15,7 @@ import xyz.thewind.music.model.CommonResp;
 import xyz.thewind.music.model.Token;
 import xyz.thewind.music.model.OldUser;
 import xyz.thewind.music.service.RedisService;
-import xyz.thewind.music.service.UserService;
+import xyz.thewind.music.service.OldUserService;
 import xyz.thewind.music.util.StringUtils;
 
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ public class UserController {
     private RedisService redisService;
 
     @Autowired
-    private UserService userService;
+    private OldUserService userService;
 
     @RequestMapping("/api/reg")
     public ResponseEntity<CommonResp> regAccount(String userId, String password, String email, String userName, HttpServletResponse response) {

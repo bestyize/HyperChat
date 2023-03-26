@@ -4,9 +4,17 @@ import xyz.thewind.user.database.bean.User;
 
 public interface UserService {
 
+    User createUser(User user);
+
     boolean isExits(long uid);
 
     User findUserByUid(long uid);
+
+    User findUserByName(String userName);
+
+    User findUserByOpenId(String openId);
+
+    User loginByUidAndToken(long uid, String token);
 
     int updateLevelByUid(long uid, int level);
 

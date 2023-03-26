@@ -9,7 +9,13 @@ import xyz.thewind.user.database.bean.User;
 @Service
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    User findFirstByUid(long uid);
+    User findTopByUid(long uid);
+
+    User findTopByUserName(String userName);
+
+    User findTopByOpenId(String openId);
+
+    User findTopByUidAndToken(long uid, String token);
 
     @Modifying
     @Query("update User set level = :level where uid = :uid")
@@ -24,7 +30,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     int updateHeaderUrlByUid(long uid, String headerUrl, String token);
 
     @Modifying
-    @Query("update User set isVip = :headerUrl , vipStartTime = :vipStartTime, vipEndTime = :vipEndTime where uid = :uid and token = :token")
+    @Query("update User set isVip = :isVip, vipStartTime = :vipStartTime, vipEndTime = :vipEndTime where uid = :uid and token = :token")
     int updateVipInfoByUid(long uid, boolean isVip, long vipStartTime, long vipEndTime, String token);
 
 

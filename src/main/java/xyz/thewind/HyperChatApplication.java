@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import xyz.thewind.global.util.ApplicationUtils;
 
 @SpringBootApplication
-@EnableJpaRepositories("xyz.thewind.music.repository")
+@EnableJpaRepositories(value = {"xyz.thewind.music.repository", "xyz.thewind.user.database.repo"})
 public class HyperChatApplication {
 
     public static void main(String[] args) {

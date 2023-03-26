@@ -8,8 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 import xyz.thewind.music.dto.DTOConverter;
 import xyz.thewind.music.dto.UserDTO;
 import xyz.thewind.music.model.OldUser;
-import xyz.thewind.music.repository.UserRepository;
-import xyz.thewind.music.service.UserService;
+import xyz.thewind.music.repository.OldUserRepository;
+import xyz.thewind.music.service.OldUserService;
 
 import java.util.List;
 
@@ -17,39 +17,39 @@ import java.util.List;
 @Service
 @Component
 @Transactional(propagation = Propagation.REQUIRED)
-public class UserServiceImpl implements UserService {
+public class OldUserServiceImpl implements OldUserService {
     @Resource
-    private UserRepository userRepository;
+    private OldUserRepository oldUserRepository;
 
     @Override
     public boolean exists(String userId) {
-        return userRepository.findTopByUserId(userId) != null;
+        return oldUserRepository.findTopByUserId(userId) != null;
     }
 
     @Override
     public boolean existsEmail(String email) {
-        return userRepository.findTopByEmail(email) != null;
+        return oldUserRepository.findTopByEmail(email) != null;
     }
 
     @Override
     public OldUser findUserByUserIdAndPassword(String userId, String password) {
-        return userRepository.findTopByUserIdAndPassword(userId, password);
+        return oldUserRepository.findTopByUserIdAndPassword(userId, password);
     }
 
     @Override
     public void updateUserStateById(String userId, int state) {
-        int status = userRepository.updateStatusByUserId(state, userId);
+        int status = oldUserRepository.updateStatusByUserId(state, userId);
     }
 
 
     @Override
     public OldUser addUser(UserDTO userDTO) {
         OldUser user = DTOConverter.convertUserDtoToUser(userDTO);
-        return userRepository.save(user);
+        return oldUserRepository.save(user);
     }
 
     @Override
     public List<OldUser> findAllUser() {
-        return userRepository.findAll();
+        return oldUserRepository.findAll();
     }
 }
