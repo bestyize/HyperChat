@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import xyz.thewind.global.util.NumberUtil;
+import xyz.thewind.global.util.StringCheckUtil;
 import xyz.thewind.global.util.UrlUtil;
 import xyz.thewind.global.util.encrypt.rsa.RsaEncryptUtil;
 import xyz.thewind.global.util.json.JsonUtilsKt;
@@ -29,22 +30,51 @@ public class UserFunctionController {
 
 
     @PostMapping("/user/api/login")
-    public String login(@RequestBody String requestBody) {
+    public ResponseEntity<CommonResponse> login(@RequestBody String requestBody) {
+        CommonResponse response = new CommonResponse();
+        response.setCode(-1);
         String clearText = RsaEncryptUtil.decrypt(requestBody);
         Map<String, String> map = UrlUtil.urlToKv(clearText);
-        if (map.isEmpty()) return "";
-        String uid = map.get("uid");
+        if (map.isEmpty()) {
+            response.setMessage("请求信息校验失败");
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }
+        String userName = map.get("userName");
         String token = map.get("token");
-        if (uid == null || token == null) return "";
-        return JsonUtilsKt.toJson(userService.loginByUidAndToken(NumberUtil.getOrDefault(uid, -1), token));
+        if (userName == null || token == null) {
+            response.setMessage("帐号或密码错误，如忘记请去公众号重置");
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }
+        String data = JsonUtilsKt.toJson(userService.loginByUserNameAndToken(userName, token));
+        if (data.isEmpty()) {
+            response.setMessage("帐号或密码错误，如忘记请去公众号重置");
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }
+        response.setCode(0);
+        response.setMessage(data);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @RequestMapping("/user/api/register")
     public ResponseEntity<CommonResponse> register(String userName, String token, String verifyCode) {
         CommonResponse commonResponse = new CommonResponse();
-        if (userName == null || token == null || verifyCode == null) {
+        boolean userNameInvalid = !StringCheckUtil.INSTANCE.isValidUserName(userName);
+
+        if (userNameInvalid) {
             commonResponse.setCode(-1);
-            commonResponse.setMessage("注册信息不合法");
+            commonResponse.setMessage("注册信息不合法,用户名必须由数字、大写字母、小写字母、下划线、@符号 组成, 且必须以字母开头， 长度不小于4");
+            return new ResponseEntity<>(commonResponse, HttpStatus.OK);
+        }
+        boolean passwordInvalid = !StringCheckUtil.INSTANCE.isValidPassword(token);
+        if (passwordInvalid) {
+            commonResponse.setCode(-1);
+            commonResponse.setMessage("注册信息不合法,密码必须由数字、大写字母、小写字母、下划线、@符号 组成，至少包含其中的两种，长度不小于6");
+            return new ResponseEntity<>(commonResponse, HttpStatus.OK);
+        }
+
+        if (verifyCode == null) {
+            commonResponse.setCode(-1);
+            commonResponse.setMessage("注册信息不合法,验证码错误");
             return new ResponseEntity<>(commonResponse, HttpStatus.OK);
         }
         if (userService.findUserByName(userName) != null) {
@@ -54,6 +84,11 @@ public class UserFunctionController {
         }
         String openId = redisTemplate.opsForValue().get(verifyCode);
         if (openId != null && openId.length() > 0) {
+            if (userService.findUserByOpenId(openId) != null) {
+                commonResponse.setCode(-1);
+                commonResponse.setMessage("该微信号已经注册过，若您忘记密码，请到公众号回复:找回帐号");
+                return new ResponseEntity<>(commonResponse, HttpStatus.OK);
+            }
             User user = new User();
             user.setUserName(userName);
             user.setToken(token);

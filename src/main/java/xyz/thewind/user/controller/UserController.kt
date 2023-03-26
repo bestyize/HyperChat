@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
+import xyz.thewind.global.util.StringCheckUtil
+import xyz.thewind.user.database.service.UserService
 import xyz.thewind.user.model.wx.WxReceiveMessage
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
@@ -18,6 +20,9 @@ class UserController {
 
     @Autowired
     private val redisTemplate: StringRedisTemplate? = null
+
+    @Autowired
+    private val userService: UserService? = null
 
     @GetMapping("/api/wechat/wx")
     fun wxTokenVerify(
@@ -62,6 +67,32 @@ class UserController {
                 }
                 redisTemplate?.opsForValue()?.set(code, openId, 10, TimeUnit.MINUTES)
                 "您的验证码是:$code, 10分钟内有效"
+            }
+            text.contains("找回账号") -> {
+                val user = userService?.findUserByOpenId(openId)
+                if (user != null) {
+                    "您的用户名是:${user.userName},您的密码是:${user.token}"
+                } else {
+                    "您还不是注册用户, 请前往APP注册"
+                }
+            }
+            text.contains("重置密码") -> {
+                val user = userService?.findUserByOpenId(openId)
+                when{
+                    user == null -> "您还不是注册用户, 请前往APP注册"
+                    text.length < 10 -> "密码长度太短"
+                    text.length >= 10 -> {
+                        val token = text.substring(IntRange("重置密码".length, text.length - 1))
+                        if (StringCheckUtil.isValidPassword(token)) {
+                            userService?.updateTokenByOpenId(openId, token)
+                            "重置成功！"
+                        } else {
+                            "密码必须由数字、大写字母、小写字母组成，至少包含其中的两种"
+                        }
+
+                    }
+                    else -> "您还不是注册用户, 请前往APP注册"
+                }
             }
             else -> "QQ群:972084185"
         }

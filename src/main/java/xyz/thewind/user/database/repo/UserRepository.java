@@ -17,6 +17,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     User findTopByUidAndToken(long uid, String token);
 
+    User findTopByUserNameAndToken(String userName, String token);
+
     @Modifying
     @Query("update User set level = :level where uid = :uid")
     int updateLevelByUid(long uid, int level);
@@ -24,6 +26,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Modifying
     @Query("update User set nickName = :nickName where uid = :uid and token = :token")
     int updateNickNameByUid(long uid, String nickName, String token);
+
+    @Modifying
+    @Query("update User set token = :token where openId = :openId")
+    int updateTokenByOpenId(String openId, String token);
 
     @Modifying
     @Query("update User set headerUrl = :headerUrl where uid = :uid and token = :token")

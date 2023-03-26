@@ -58,6 +58,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User loginByUserNameAndToken(String userName, String token) {
+        return repo.findTopByUserNameAndToken(userName, token);
+    }
+
+    @Override
+    public int updateTokenByOpenId(String openId, String token) {
+        return repo.updateTokenByOpenId(openId, token);
+    }
+
+    @Override
     public int updateLevelByUid(long uid, int level) {
         return repo.updateLevelByUid(uid, level);
     }

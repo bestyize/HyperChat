@@ -16,6 +16,10 @@ public interface UserService {
 
     User loginByUidAndToken(long uid, String token);
 
+    User loginByUserNameAndToken(String userName, String token);
+
+    int updateTokenByOpenId(String openId, String token);
+
     int updateLevelByUid(long uid, int level);
 
     int updateNickNameByUid(long uid, String nickName, String token);

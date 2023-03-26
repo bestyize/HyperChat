@@ -7,7 +7,7 @@ public class EncryptTest {
 
     @Test
     public void testRsaEncrypt() throws Exception {
-        RsaEncryptUtil.encText();
+        System.out.println(RsaEncryptUtil.encrypt("userName=yize&token=zr2014"));
     }
 
 }

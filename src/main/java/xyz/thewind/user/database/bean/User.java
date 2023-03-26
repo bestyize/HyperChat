@@ -16,12 +16,13 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private long uid;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long uid = 10000;
 
     @Column(name = "user_name")
-    private String userName;
+    public String userName;
 
-    private String token;
+    public String token;
 
     private String email;
 
