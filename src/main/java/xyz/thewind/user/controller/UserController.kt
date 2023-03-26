@@ -58,7 +58,7 @@ class UserController {
         return when {
             text.contains("音乐") || text.contains("教程") || text.contains("无名") -> "教程:https://mp.weixin.qq.com/s/-W13vOAK7hicZ6aYq3ifYQ"
             text.contains("限制") -> "因站点访问量过大，需要限制流量，触发IP限制的时长为6小时，您可以在六小时后重试，或者切换网络改变IP"
-            text.contains("验证码") || text.contains("重置密码") -> {
+            text.contains("验证码") -> {
                 var code = rand(100000, 999999).toString()
                 var retryTime = 5
                 while (redisTemplate?.opsForValue()?.get(code) != null && retryTime > 0) {

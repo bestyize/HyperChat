@@ -30,26 +30,17 @@ public class UserServiceImpl implements UserService {
     @Override
     @Nullable
     public User findUserByUid(long uid) {
-        User u = repo.findTopByUid(uid);
-        if (u == null) return null;
-        u.setToken("");
-        return u;
+        return repo.findTopByUid(uid);
     }
 
     @Override
     public User findUserByName(String userName) {
-        User u = repo.findTopByUserName(userName);
-        if (u == null) return null;
-        u.setToken("");
-        return u;
+        return repo.findTopByUserName(userName);
     }
 
     @Override
     public User findUserByOpenId(String openId) {
-        User u = repo.findTopByOpenId(openId);
-        if (u == null) return null;
-        u.setToken("");
-        return u;
+        return repo.findTopByOpenId(openId);
     }
 
     @Override

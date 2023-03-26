@@ -22,6 +22,7 @@ public class User {
     @Column(name = "user_name")
     public String userName;
 
+    @Column(name = "token")
     public String token;
 
     private String email;
