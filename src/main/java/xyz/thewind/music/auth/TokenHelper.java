@@ -3,7 +3,7 @@ package xyz.thewind.music.auth;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import xyz.thewind.music.model.Token;
-import xyz.thewind.music.model.User;
+import xyz.thewind.music.model.OldUser;
 import xyz.thewind.music.util.Base64Util;
 import xyz.thewind.music.util.GsonUtil;
 
@@ -33,7 +33,7 @@ public class TokenHelper {
         return token;
     }
 
-    public static void setCookie(HttpServletResponse response, User user, String userId, String password) {
+    public static void setCookie(HttpServletResponse response, OldUser user, String userId, String password) {
         Cookie inf = new Cookie("info", Base64Util.encode(GsonUtil.toJson(user)));
         inf.setPath("/");
         inf.setMaxAge(86400);

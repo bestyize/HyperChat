@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import xyz.thewind.music.dto.DTOConverter;
 import xyz.thewind.music.dto.UserDTO;
-import xyz.thewind.music.model.User;
+import xyz.thewind.music.model.OldUser;
 import xyz.thewind.music.repository.UserRepository;
 import xyz.thewind.music.service.UserService;
 
@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findUserByUserIdAndPassword(String userId, String password) {
+    public OldUser findUserByUserIdAndPassword(String userId, String password) {
         return userRepository.findTopByUserIdAndPassword(userId, password);
     }
 
@@ -43,13 +43,13 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public User addUser(UserDTO userDTO) {
-        User user = DTOConverter.convertUserDtoToUser(userDTO);
+    public OldUser addUser(UserDTO userDTO) {
+        OldUser user = DTOConverter.convertUserDtoToUser(userDTO);
         return userRepository.save(user);
     }
 
     @Override
-    public List<User> findAllUser() {
+    public List<OldUser> findAllUser() {
         return userRepository.findAll();
     }
 }

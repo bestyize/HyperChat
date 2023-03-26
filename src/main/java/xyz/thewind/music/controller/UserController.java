@@ -1,7 +1,5 @@
 package xyz.thewind.music.controller;
 
-import jakarta.annotation.Resource;
-import jakarta.annotation.Resources;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,15 +7,13 @@ import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import xyz.thewind.music.auth.TokenHelper;
 import xyz.thewind.music.dto.DTOConverter;
 import xyz.thewind.music.model.CommonResp;
 import xyz.thewind.music.model.Token;
-import xyz.thewind.music.model.User;
+import xyz.thewind.music.model.OldUser;
 import xyz.thewind.music.service.RedisService;
 import xyz.thewind.music.service.UserService;
 import xyz.thewind.music.util.StringUtils;
@@ -47,7 +43,7 @@ public class UserController {
             commonResp.code(-1).msg("注册失败，已有该邮箱");
         } else {
             try {
-                User user = userService.addUser(DTOConverter.defaultUserDTO(userId, password, email, userName));
+                OldUser user = userService.addUser(DTOConverter.defaultUserDTO(userId, password, email, userName));
                 user.setPassword("");
                 TokenHelper.setCookie(response, user, userId, password);
                 commonResp.code(0).msg("注册成功").obj(user);
@@ -61,7 +57,7 @@ public class UserController {
     @RequestMapping("/api/login")
     public ResponseEntity<CommonResp> login(String userId, String password, HttpServletResponse response) {
         CommonResp commonResp = new CommonResp();
-        User user = userService.findUserByUserIdAndPassword(userId, password);
+        OldUser user = userService.findUserByUserIdAndPassword(userId, password);
         HttpHeaders headers = new HttpHeaders();
         if (user != null) {
             user.setPassword("");
@@ -99,11 +95,11 @@ public class UserController {
     }
 
     @RequestMapping("/api/queryalluser")
-    public ResponseEntity<List<User>> findAllUser(HttpServletRequest request) {
+    public ResponseEntity<List<OldUser>> findAllUser(HttpServletRequest request) {
         Token token = TokenHelper.parseToken(request.getCookies());
-        List<User> userList = new ArrayList<>();
+        List<OldUser> userList = new ArrayList<>();
         if (token.userId.length() > 0 && token.password.length() > 0 && userService.exists(token.userId)) {
-            User user = userService.findUserByUserIdAndPassword(token.userId, token.password);
+            OldUser user = userService.findUserByUserIdAndPassword(token.userId, token.password);
             if (user != null && user.getLevel() >= 7) {
                 userList = userService.findAllUser();
             }

@@ -1,14 +1,14 @@
 package xyz.thewind.music.dto;
 
 
-import xyz.thewind.music.model.User;
+import xyz.thewind.music.model.OldUser;
 import xyz.thewind.music.util.GsonUtil;
 
 import java.util.Date;
 
 public class DTOConverter {
-    public static User convertUserDtoToUser(UserDTO userDTO) {
-        return new User(userDTO.getUserId(),
+    public static OldUser convertUserDtoToUser(UserDTO userDTO) {
+        return new OldUser(userDTO.getUserId(),
                 userDTO.getPassword(),
                 userDTO.getUserName(),
                 userDTO.getEmail(),

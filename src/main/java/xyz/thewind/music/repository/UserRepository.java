@@ -6,21 +6,21 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import xyz.thewind.music.model.User;
+import xyz.thewind.music.model.OldUser;
 
 import java.util.List;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificationExecutor<User> {
-    User findTopByUserId(String userId);
+public interface UserRepository extends JpaRepository<OldUser, Long>, JpaSpecificationExecutor<OldUser> {
+    OldUser findTopByUserId(String userId);
 
-    User findTopByEmail(String email);
+    OldUser findTopByEmail(String email);
 
-    User findTopByUserIdAndPassword(String userId, String password);
+    OldUser findTopByUserIdAndPassword(String userId, String password);
 
     @Modifying
-    @Query("update User set status= :status where userId = :userId")
+    @Query("update OldUser set status= :status where userId = :userId")
     int updateStatusByUserId(@Param("status") int status, @Param("userId") String userId);
 
-    List<User> findAll();
+    List<OldUser> findAll();
 }

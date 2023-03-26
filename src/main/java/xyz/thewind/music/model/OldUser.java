@@ -8,7 +8,7 @@ import java.util.Date;
 @Entity
 @Table(name = "tb_user")
 @Data
-public class User {
+public class OldUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -33,10 +33,10 @@ public class User {
     @Column(name = "avatar", columnDefinition = "varchar(200)", nullable = true)
     private String avatar;
 
-    public User() {
+    public OldUser() {
     }
 
-    public User(String userId, String password, String userName, String email, String mobile, Date birthday, Date createDate, Integer level, Integer status, String avatar) {
+    public OldUser(String userId, String password, String userName, String email, String mobile, Date birthday, Date createDate, Integer level, Integer status, String avatar) {
         this.userId = userId;
         this.password = password;
         this.userName = userName;

@@ -1,15 +1,9 @@
 package xyz.thewind.user.controller
 
-import jakarta.servlet.http.HttpServletRequest
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.http.server.ServletServerHttpRequest
-import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import xyz.thewind.music.service.RedisService
 import xyz.thewind.user.model.wx.WxReceiveMessage
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
@@ -20,7 +14,12 @@ import java.util.*
 class UserController {
 
     @GetMapping("/api/wechat/wx")
-    fun wxTokenVerify(signature: String? = "", timestamp: String? = "", nonce: String? = "", echostr: String? = ""): String {
+    fun wxTokenVerify(
+        signature: String? = "",
+        timestamp: String? = "",
+        nonce: String? = "",
+        echostr: String? = ""
+    ): String {
         return if (checkSignature(signature, "bestyize", timestamp, nonce)) echostr ?: "" else "error"
     }
 
@@ -31,12 +30,20 @@ class UserController {
 
     private fun handleUserMessage(requestBody: String?): String {
         val message = WxReceiveMessage.decode(requestBody)
-        if (message.msgType != "text") return assembleReplayData("不支持图片、视频消息", toUserName = message.fromUserName, fromUserName = message.toUserName)
-        return assembleReplayData(hitMusic(message.content), toUserName = message.fromUserName, fromUserName = message.toUserName)
+        if (message.msgType != "text") return assembleReplayData(
+            "不支持图片、视频消息",
+            toUserName = message.fromUserName,
+            fromUserName = message.toUserName
+        )
+        return assembleReplayData(
+            hitMusic(message.content),
+            toUserName = message.fromUserName,
+            fromUserName = message.toUserName
+        )
     }
 
 
-    private fun hitMusic(text: String) : String {
+    private fun hitMusic(text: String): String {
         return when {
             text.contains("音乐") || text.contains("教程") || text.contains("无名") -> "教程:https://mp.weixin.qq.com/s/-W13vOAK7hicZ6aYq3ifYQ"
             text.contains("验证码") -> "12345"
@@ -47,7 +54,7 @@ class UserController {
 
 
     private fun checkSignature(msgSignature: String?, token: String?, timeStamp: String?, nonce: String?): Boolean {
-        if (msgSignature == null || token ==null ||timeStamp == null || nonce == null) return false
+        if (msgSignature == null || token == null || timeStamp == null || nonce == null) return false
         // 1.将token、timestamp、nonce三个参数进行字典序排序
         val arr = arrayOf(token, timeStamp, nonce)
         Arrays.sort(arr)
@@ -83,17 +90,7 @@ class UserController {
         return result
     }
 
-    private fun assembleReplayData(content: String,toUserName: String, fromUserName: String): String {
+    private fun assembleReplayData(content: String, toUserName: String, fromUserName: String): String {
         return "<xml><ToUserName><![CDATA[${toUserName}]]></ToUserName><FromUserName><![CDATA[$fromUserName]]></FromUserName><CreateTime>${System.currentTimeMillis() / 1000}</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[$content]]></Content></xml>"
-    }
-
-    companion object {
-        private const val REPLAY = "<xml>\n" +
-                "  <ToUserName><![CDATA[toUser]]></ToUserName>\n" +
-                "  <FromUserName><![CDATA[fromUser]]></FromUserName>\n" +
-                "  <CreateTime>12345678</CreateTime>\n" +
-                "  <MsgType><![CDATA[text]]></MsgType>\n" +
-                "  <Content><![CDATA[你好]]></Content>\n" +
-                "</xml>"
     }
 }
