@@ -30,6 +30,8 @@ public interface UserService {
 
     int updateHeaderUrlByUid(long uid, String headerUrl, String token);
 
+    int updateUserDescByUid(long uid, String desc, String token);
+
     int updateVipInfoByUid(long uid, boolean isVip, long vipStartTime, long vipEndTime, String token);
 
     int getUserLevelByUid(long uid);

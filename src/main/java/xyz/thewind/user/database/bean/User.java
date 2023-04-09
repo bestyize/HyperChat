@@ -38,6 +38,9 @@ public class User {
     @Column(name = "header_url")
     private String headerUrl;
 
+    @Column(name = "desc")
+    private String desc;
+
     private int level; // 0: 未激活  1、普通用户 2、高级用户  50、管理员  100、拥有者 -1、禁止发言
 
     @Column(name = "is_vip")

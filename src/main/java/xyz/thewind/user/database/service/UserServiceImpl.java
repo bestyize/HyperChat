@@ -87,6 +87,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public int updateUserDescByUid(long uid, String desc, String token) {
+        return repo.updateUserDescByUid(uid, desc, token);
+    }
+
+    @Override
     public int updateVipInfoByUid(long uid, boolean isVip, long vipStartTime, long vipEndTime, String token) {
         return repo.updateVipInfoByUid(uid, isVip, vipStartTime,vipEndTime, token);
     }

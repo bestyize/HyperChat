@@ -208,6 +208,37 @@ public class UserFunctionController {
         return new ResponseEntity<>(resp, HttpStatus.OK);
     }
 
+    @RequestMapping("/user/api/update/desc")
+    public ResponseEntity<UpdateUserInfoResponse> updateDesc(HttpServletRequest request) {
+        UpdateUserInfoResponse resp = new UpdateUserInfoResponse();
+        String desc = request.getParameter("desc");
+        if (desc == null) {
+            desc = "";
+        }
+        if (desc.length() > 50) {
+            resp.setMsg("暂不支持50字以上的简介");
+            return new ResponseEntity<>(resp, HttpStatus.OK);
+        }
+
+        long uid = NumberUtil.getOrDefault(request.getHeader("uid"), -1);
+        String token = request.getHeader("token");
+        User user = userService.findUserByUidAndToken(uid, token);
+        if (user == null) {
+            resp.setMsg("用户登录信息无效");
+            return new ResponseEntity<>(resp, HttpStatus.OK);
+        }
+        int code = userService.updateHeaderUrlByUid(uid, desc, token);
+        if (code == 0) {
+            resp.setMsg("更新失败，请稍后重试");
+            return new ResponseEntity<>(resp, HttpStatus.OK);
+        }
+        resp.setCode(0);
+        resp.setMsg("更新成功");
+        user.setDesc(desc);
+        resp.setData(user);
+        return new ResponseEntity<>(resp, HttpStatus.OK);
+    }
+
 
 
 }
