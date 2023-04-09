@@ -1,5 +1,6 @@
 package xyz.thewind.user.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.HttpStatus;
@@ -13,7 +14,9 @@ import xyz.thewind.global.util.StringCheckUtil;
 import xyz.thewind.global.util.UrlUtil;
 import xyz.thewind.global.util.encrypt.rsa.RsaEncryptUtil;
 import xyz.thewind.global.util.json.JsonUtilsKt;
+import xyz.thewind.music.util.StringUtils;
 import xyz.thewind.user.bean.CommonResponse;
+import xyz.thewind.user.bean.UpdateUserInfoResponse;
 import xyz.thewind.user.database.bean.User;
 import xyz.thewind.user.database.service.UserService;
 
@@ -62,13 +65,13 @@ public class UserFunctionController {
 
         if (userNameInvalid) {
             commonResponse.setCode(-1);
-            commonResponse.setMessage("注册信息不合法,用户名必须由数字、大写字母、小写字母、下划线、@符号 组成, 且必须以字母开头， 长度不小于4");
+            commonResponse.setMessage("注册信息不合法,用户名必须由数字、字母、下划线、汉字中的一种或多种组成, 长度大于1");
             return new ResponseEntity<>(commonResponse, HttpStatus.OK);
         }
         boolean passwordInvalid = !StringCheckUtil.INSTANCE.isValidPassword(token);
         if (passwordInvalid) {
             commonResponse.setCode(-1);
-            commonResponse.setMessage("注册信息不合法,密码必须由数字、大写字母、小写字母、下划线、@符号 组成，至少包含其中的两种，长度不小于6");
+            commonResponse.setMessage("注册信息不合法,密码必须由数字、字母、下划线、@符号 组成，至少包含其中的两种，长度大于5");
             return new ResponseEntity<>(commonResponse, HttpStatus.OK);
         }
 
@@ -110,6 +113,101 @@ public class UserFunctionController {
         commonResponse.setMessage("验证码已失效，请重新获取");
         return new ResponseEntity<>(commonResponse, HttpStatus.OK);
     }
+
+    @RequestMapping("/user/api/update/name")
+    public ResponseEntity<UpdateUserInfoResponse> updateUserName(HttpServletRequest request) {
+        UpdateUserInfoResponse resp = new UpdateUserInfoResponse();
+        String name = request.getParameter("userName");
+        boolean isValidName = StringCheckUtil.INSTANCE.isValidUserName(name);
+        if (!isValidName) {
+            resp.setMsg("新用户名格式校验错误");
+            return new ResponseEntity<>(resp, HttpStatus.OK);
+        }
+        if(StringUtils.isSensitiveWord(name)) {
+            resp.setMsg("此为违禁词，请换一个试试");
+            return new ResponseEntity<>(resp, HttpStatus.OK);
+        }
+
+        long uid = NumberUtil.getOrDefault(request.getHeader("uid"), -1);
+        if (userService.isExits(uid)) {
+            resp.setMsg("用户名已存在");
+            return new ResponseEntity<>(resp, HttpStatus.OK);
+        }
+        String token = request.getHeader("token");
+        User user = userService.findUserByUidAndToken(uid, token);
+        if (user == null) {
+            resp.setMsg("用户登录信息无效");
+            return new ResponseEntity<>(resp, HttpStatus.OK);
+        }
+        int code = userService.updateUserNameByUid(uid, name, token);
+        if (code == 0) {
+            resp.setMsg("更新失败，请稍后重试");
+            return new ResponseEntity<>(resp, HttpStatus.OK);
+        }
+        resp.setCode(0);
+        resp.setMsg("更新成功");
+        user.setUserName(name);
+        resp.setData(user);
+        return new ResponseEntity<>(resp, HttpStatus.OK);
+    }
+
+    @RequestMapping("/user/api/update/token")
+    public ResponseEntity<UpdateUserInfoResponse> updateToken(HttpServletRequest request) {
+        UpdateUserInfoResponse resp = new UpdateUserInfoResponse();
+        String newToken = request.getParameter("token");
+        boolean isValid = StringCheckUtil.INSTANCE.isValidPassword(newToken);
+        if (!isValid) {
+            resp.setMsg("密码不合法");
+            return new ResponseEntity<>(resp, HttpStatus.OK);
+        }
+
+        long uid = NumberUtil.getOrDefault(request.getHeader("uid"), -1);
+        String token = request.getHeader("token");
+        User user = userService.findUserByUidAndToken(uid, token);
+        if (user == null) {
+            resp.setMsg("用户登录信息无效");
+            return new ResponseEntity<>(resp, HttpStatus.OK);
+        }
+        int code = userService.updateTokenByUid(uid, newToken);
+        if (code == 0) {
+            resp.setMsg("更新失败，请稍后重试");
+            return new ResponseEntity<>(resp, HttpStatus.OK);
+        }
+        resp.setCode(0);
+        resp.setMsg("更新成功");
+        user.setToken(token);
+        resp.setData(user);
+        return new ResponseEntity<>(resp, HttpStatus.OK);
+    }
+
+    @RequestMapping("/user/api/update/header")
+    public ResponseEntity<UpdateUserInfoResponse> updateHeader(HttpServletRequest request) {
+        UpdateUserInfoResponse resp = new UpdateUserInfoResponse();
+        String header = request.getParameter("header");
+        if (header == null || !header.startsWith("https")) {
+            resp.setMsg("头像链接无效");
+            return new ResponseEntity<>(resp, HttpStatus.OK);
+        }
+
+        long uid = NumberUtil.getOrDefault(request.getHeader("uid"), -1);
+        String token = request.getHeader("token");
+        User user = userService.findUserByUidAndToken(uid, token);
+        if (user == null) {
+            resp.setMsg("用户登录信息无效");
+            return new ResponseEntity<>(resp, HttpStatus.OK);
+        }
+        int code = userService.updateHeaderUrlByUid(uid, header, token);
+        if (code == 0) {
+            resp.setMsg("更新失败，请稍后重试");
+            return new ResponseEntity<>(resp, HttpStatus.OK);
+        }
+        resp.setCode(0);
+        resp.setMsg("更新成功");
+        user.setHeaderUrl(header);
+        resp.setData(user);
+        return new ResponseEntity<>(resp, HttpStatus.OK);
+    }
+
 
 
 }

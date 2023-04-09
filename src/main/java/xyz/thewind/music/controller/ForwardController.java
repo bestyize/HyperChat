@@ -27,6 +27,6 @@ public class ForwardController {
 
     @RequestMapping("/upload")
     public String upload() {
-        return "upload";
+        return "up";
     }
 }

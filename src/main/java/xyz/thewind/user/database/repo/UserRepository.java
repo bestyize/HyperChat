@@ -24,12 +24,17 @@ public interface UserRepository extends JpaRepository<User, Long> {
     int updateLevelByUid(long uid, int level);
 
     @Modifying
-    @Query("update User set nickName = :nickName where uid = :uid and token = :token")
-    int updateNickNameByUid(long uid, String nickName, String token);
+    @Query("update User set userName = :userName where uid = :uid and token = :token")
+    int updateUserNameByUid(long uid, String userName, String token);
 
     @Modifying
     @Query("update User set token = :token where openId = :openId")
     int updateTokenByOpenId(String openId, String token);
+
+    @Modifying
+    @Query("update User set token = :token where uid = :uid")
+    int updateTokenByUid(long uid, String token);
+
 
     @Modifying
     @Query("update User set headerUrl = :headerUrl where uid = :uid and token = :token")

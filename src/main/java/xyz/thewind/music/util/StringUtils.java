@@ -1,7 +1,10 @@
 package xyz.thewind.music.util;
 
-import java.util.HashMap;
-import java.util.Map;
+import org.apache.commons.io.FileUtils;
+
+import java.io.File;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
 
 public class StringUtils {
     public static boolean isChar(char c) {
@@ -88,6 +91,29 @@ public class StringUtils {
             pairMap.put(keyVal[0], keyVal[1]);
         }
         return pairMap;
+
+    }
+
+    private static Set<String> senstiveSet = new HashSet<>();
+
+    public static boolean isSensitiveWord(String word) {
+        if (word == null || word.isBlank()) {
+            return false;
+        }
+        if (!senstiveSet.isEmpty()) {
+            return senstiveSet.contains(word);
+        }
+        File file = new File("/home/resource/config/sensitive.txt");
+        if (!file.exists()) {
+            return false;
+        }
+        try {
+            String[] sens = FileUtils.readFileToString(file, StandardCharsets.UTF_8).split("\r\n");
+            senstiveSet.addAll(Arrays.asList(sens));
+        } catch (Exception e) {
+
+        }
+        return senstiveSet.contains(word);
 
     }
 }

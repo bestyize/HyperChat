@@ -45,7 +45,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User loginByUidAndToken(long uid, String token) {
+        if (uid < 0 || token == null || token.isEmpty()) {
+            return null;
+        }
         return repo.findTopByUidAndToken(uid, token);
+    }
+
+    @Override
+    public User findUserByUidAndToken(long uid, String token) {
+        return loginByUidAndToken(uid, token);
     }
 
     @Override
@@ -64,8 +72,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int updateNickNameByUid(long uid, String nickName, String token) {
-        return repo.updateNickNameByUid(uid, nickName, token);
+    public int updateUserNameByUid(long uid, String userName, String token) {
+        return repo.updateUserNameByUid(uid, userName, token);
+    }
+
+    @Override
+    public int updateTokenByUid(long uid, String token) {
+        return repo.updateTokenByUid(uid, token);
     }
 
     @Override
