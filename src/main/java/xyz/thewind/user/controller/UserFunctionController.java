@@ -129,7 +129,7 @@ public class UserFunctionController {
         }
 
         long uid = NumberUtil.getOrDefault(request.getHeader("uid"), -1);
-        if (userService.isExits(uid)) {
+        if (userService.findUserByName(name) != null) {
             resp.setMsg("用户名已存在");
             return new ResponseEntity<>(resp, HttpStatus.OK);
         }

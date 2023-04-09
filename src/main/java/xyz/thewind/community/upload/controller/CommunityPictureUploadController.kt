@@ -99,7 +99,7 @@ class CommunityPictureUploadController {
         return ResponseEntity(resp, HttpStatus.OK)
     }
 
-    @GetMapping("/api/community/picture/res/{hash}")
+    @GetMapping("/community/api/picture/res/{hash}")
     fun downloadPicture(@PathVariable hash: String? = null): ResponseEntity<Resource> {
         val filePath = PICTURE_CACHE_PATH + File.separator + hash
         val resource: Resource
