@@ -44,7 +44,12 @@ class CommunityPictureUploadController {
             FileUtils.writeByteArrayToFile(file, bArr)
             finalFileName = Md5Encrypt.getMd5OfFile(file.absolutePath)
             val dstFile = File(PICTURE_CACHE_PATH + File.separator + finalFileName)
-            FileUtils.moveFile(file, dstFile)
+            if (dstFile.exists()) {
+                file.delete()
+            } else {
+                FileUtils.moveFile(file, dstFile)
+            }
+
 
 
         } catch (_: Exception) {

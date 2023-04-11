@@ -227,7 +227,7 @@ public class UserFunctionController {
             resp.setMsg("用户登录信息无效");
             return new ResponseEntity<>(resp, HttpStatus.OK);
         }
-        int code = userService.updateHeaderUrlByUid(uid, desc, token);
+        int code = userService.updateUserDescByUid(uid, desc, token);
         if (code == 0) {
             resp.setMsg("更新失败，请稍后重试");
             return new ResponseEntity<>(resp, HttpStatus.OK);
