@@ -87,8 +87,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int updateUserDescByUid(long uid, String desc, String token) {
-        return repo.updateUserDescByUid(uid, desc, token);
+    public int updateUserDescByUid(long uid, String userDesc, String token) {
+        return repo.updateUserDescByUid(uid, userDesc, token);
     }
 
     @Override

@@ -234,7 +234,7 @@ public class UserFunctionController {
         }
         resp.setCode(0);
         resp.setMsg("更新成功");
-        user.setDesc(desc);
+        user.setUserDesc(desc);
         resp.setData(user);
         return new ResponseEntity<>(resp, HttpStatus.OK);
     }

@@ -41,8 +41,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     int updateHeaderUrlByUid(long uid, String headerUrl, String token);
 
     @Modifying
-    @Query("update User set desc = :desc where uid = :uid and token = :token")
-    int updateUserDescByUid(long uid, String desc, String token);
+    @Query("update User set userDesc = :userDesc where uid = :uid and token = :token")
+    int updateUserDescByUid(long uid, String userDesc, String token);
 
     @Modifying
     @Query("update User set isVip = :isVip, vipStartTime = :vipStartTime, vipEndTime = :vipEndTime where uid = :uid and token = :token")
