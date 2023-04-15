@@ -17,5 +17,6 @@ class ImageSearchData {
     var views: Long = 0
     var downloads: Long = 0
     var collections: Long = 0
+    var likes: Long = 0
 
 }

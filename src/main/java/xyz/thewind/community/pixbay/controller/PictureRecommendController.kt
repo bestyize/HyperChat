@@ -40,6 +40,7 @@ class PictureRecommendController {
                     this.views = it.views
                     this.downloads = it.downloads
                     this.collections = it.collections
+                    this.likes = it.likes
                 })
             }
             response.data = list

@@ -28,4 +28,5 @@ class PixbayImage {
     var downloads: Long = 0
     var collections: Long = 0
     var comments: Long = 0
+    var likes: Long = 0
 }
