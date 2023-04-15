@@ -11,6 +11,7 @@ class ImageSearchData {
     var tags: String? = null
     var pageUrl: String? = null
     var imageUrl: String ?= null
+    var previewImageUrl: String ?= null
     var width: Int = 0
     var height: Int = 0
     var views: Long = 0

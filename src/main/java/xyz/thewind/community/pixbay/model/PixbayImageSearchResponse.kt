@@ -14,6 +14,8 @@ class PixbayImage {
     var pageUrl: String? = null
     var type: String = "photo"
     var tags: String = "tags"
+    @SerializedName("webformatURL")
+    var previewImageUrl: String? = null
     @SerializedName("largeImageURL")
     var imageUrl: String? = null
     @SerializedName("imageWidth")

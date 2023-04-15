@@ -34,6 +34,7 @@ class PictureRecommendController {
                     this.tags = it.tags
                     this.pageUrl = it.pageUrl
                     this.imageUrl = it.imageUrl
+                    this.previewImageUrl = it.previewImageUrl
                     this.width = it.width
                     this.height = it.height
                     this.views = it.views
