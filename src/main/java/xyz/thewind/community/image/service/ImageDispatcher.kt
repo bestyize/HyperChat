@@ -32,7 +32,7 @@ object ImageDispatcher {
         resp.add(ImageRecommendTab().apply {
             this.src = src
             this.title = "壁纸"
-            this.query = "壁纸"
+            this.query = "手机壁纸"
         })
         resp.add(ImageRecommendTab().apply {
             this.src = src
@@ -41,18 +41,23 @@ object ImageDispatcher {
         })
         resp.add(ImageRecommendTab().apply {
             this.src = src
+            this.title = "风景"
+            this.query = "风景"
+        })
+        resp.add(ImageRecommendTab().apply {
+            this.src = src
             this.title = "艺术"
             this.query = "艺术"
         })
         resp.add(ImageRecommendTab().apply {
             this.src = src
-            this.title = "美女"
-            this.query = "美女"
+            this.title = "孤独"
+            this.query = "孤独"
         })
         resp.add(ImageRecommendTab().apply {
             this.src = src
-            this.title = "风景"
-            this.query = "风景"
+            this.title = "美女"
+            this.query = "美女"
         })
         resp.add(ImageRecommendTab().apply {
             this.src = src
