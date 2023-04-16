@@ -1,8 +1,8 @@
-package xyz.thewind.community.pixbay.model
+package xyz.thewind.community.image.service.impl.pixbay.model
 
 import com.google.gson.annotations.SerializedName
 
-class PixbayImageSearchResponse {
+class PixbaySearchResponse {
     var total: Int = 0
     @SerializedName("hits")
     var list: MutableList<PixbayImage> = mutableListOf()
