@@ -34,4 +34,19 @@ public class ForwardController {
     public String userAggrement() {
         return "user_aggrement";
     }
+
+    @RequestMapping("/about")
+    public String about() {
+        return "about";
+    }
+
+    @RequestMapping("/ad")
+    public String ad() {
+        return "ad";
+    }
+
+    @RequestMapping("/app")
+    public String app() {
+        return "app";
+    }
 }
