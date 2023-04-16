@@ -29,4 +29,9 @@ public class ForwardController {
     public String upload() {
         return "up";
     }
+
+    @RequestMapping("/user_aggrement")
+    public String userAggrement() {
+        return "user_aggrement";
+    }
 }
