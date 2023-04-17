@@ -16,8 +16,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long uid = 10000;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "uid",columnDefinition = "bigint(20) not null UNIQUE key auto_increment")
+    private long uid;
 
     @Column(name = "user_name")
     public String userName;

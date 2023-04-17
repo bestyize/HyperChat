@@ -23,42 +23,62 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean isExits(long uid) {
-        return findUserByUid(uid) != null;
+    public boolean isExits(long id) {
+        return findUserById(id) != null;
     }
 
     @Override
     @Nullable
-    public User findUserByUid(long uid) {
-        return repo.findTopByUid(uid);
+    public User findUserById(long id) {
+        User user = repo.findTopById(id);
+        if (user != null) {
+            user.setUid(user.getId());
+        }
+        return user;
     }
 
     @Override
     public User findUserByName(String userName) {
-        return repo.findTopByUserName(userName);
+        User user = repo.findTopByUserName(userName);
+        if (user != null) {
+            user.setUid(user.getId());
+        }
+        return user;
     }
 
     @Override
     public User findUserByOpenId(String openId) {
-        return repo.findTopByOpenId(openId);
+        User user = repo.findTopByOpenId(openId);
+        if (user != null) {
+            user.setUid(user.getId());
+        }
+        return user;
     }
 
     @Override
-    public User loginByUidAndToken(long uid, String token) {
-        if (uid < 0 || token == null || token.isEmpty()) {
+    public User loginByIdAndToken(long id, String token) {
+        if (id < 0 || token == null || token.isEmpty()) {
             return null;
         }
-        return repo.findTopByUidAndToken(uid, token);
+        User user = repo.findTopByIdAndToken(id, token);
+        if (user != null) {
+            user.setUid(user.getId());
+        }
+        return user;
     }
 
     @Override
-    public User findUserByUidAndToken(long uid, String token) {
-        return loginByUidAndToken(uid, token);
+    public User findUserByIdAndToken(long id, String token) {
+        return loginByIdAndToken(id, token);
     }
 
     @Override
     public User loginByUserNameAndToken(String userName, String token) {
-        return repo.findTopByUserNameAndToken(userName, token);
+        User user = repo.findTopByUserNameAndToken(userName, token);
+        if (user != null) {
+            user.setUid(user.getId());
+        }
+        return user;
     }
 
     @Override
@@ -67,45 +87,45 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int updateLevelByUid(long uid, int level) {
-        return repo.updateLevelByUid(uid, level);
+    public int updateLevelById(long id, int level) {
+        return repo.updateLevelById(id, level);
     }
 
     @Override
-    public int updateUserNameByUid(long uid, String userName, String token) {
-        return repo.updateUserNameByUid(uid, userName, token);
+    public int updateUserNameById(long id, String userName, String token) {
+        return repo.updateUserNameById(id, userName, token);
     }
 
     @Override
-    public int updateTokenByUid(long uid, String token) {
-        return repo.updateTokenByUid(uid, token);
+    public int updateTokenById(long id, String token) {
+        return repo.updateTokenById(id, token);
     }
 
     @Override
-    public int updateHeaderUrlByUid(long uid, String headerUrl, String token) {
-        return repo.updateHeaderUrlByUid(uid, headerUrl, token);
+    public int updateHeaderUrlById(long id, String headerUrl, String token) {
+        return repo.updateHeaderUrlById(id, headerUrl, token);
     }
 
     @Override
-    public int updateUserDescByUid(long uid, String userDesc, String token) {
-        return repo.updateUserDescByUid(uid, userDesc, token);
+    public int updateUserDescById(long id, String userDesc, String token) {
+        return repo.updateUserDescById(id, userDesc, token);
     }
 
     @Override
-    public int updateVipInfoByUid(long uid, boolean isVip, long vipStartTime, long vipEndTime, String token) {
-        return repo.updateVipInfoByUid(uid, isVip, vipStartTime,vipEndTime, token);
+    public int updateVipInfoById(long id, boolean isVip, long vipStartTime, long vipEndTime, String token) {
+        return repo.updateVipInfoById(id, isVip, vipStartTime,vipEndTime, token);
     }
 
     @Override
-    public int getUserLevelByUid(long uid) {
-        User u = findUserByUid(uid);
+    public int getUserLevelById(long id) {
+        User u = findUserById(id);
         if (u == null) return -1;
         return u.getLevel();
     }
 
     @Override
-    public boolean isVip(long uid) {
-        User u = findUserByUid(uid);
+    public boolean isVip(long id) {
+        User u = findUserById(id);
         if (u == null) return false;
         return u.isVip();
     }

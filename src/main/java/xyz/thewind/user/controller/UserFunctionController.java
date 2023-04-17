@@ -134,12 +134,12 @@ public class UserFunctionController {
             return new ResponseEntity<>(resp, HttpStatus.OK);
         }
         String token = request.getHeader("token");
-        User user = userService.findUserByUidAndToken(uid, token);
+        User user = userService.findUserByIdAndToken(uid, token);
         if (user == null) {
             resp.setMsg("用户登录信息无效");
             return new ResponseEntity<>(resp, HttpStatus.OK);
         }
-        int code = userService.updateUserNameByUid(uid, name, token);
+        int code = userService.updateUserNameById(uid, name, token);
         if (code == 0) {
             resp.setMsg("更新失败，请稍后重试");
             return new ResponseEntity<>(resp, HttpStatus.OK);
@@ -163,12 +163,12 @@ public class UserFunctionController {
 
         long uid = NumberUtil.getOrDefault(request.getHeader("uid"), -1);
         String token = request.getHeader("token");
-        User user = userService.findUserByUidAndToken(uid, token);
+        User user = userService.findUserByIdAndToken(uid, token);
         if (user == null) {
             resp.setMsg("用户登录信息无效");
             return new ResponseEntity<>(resp, HttpStatus.OK);
         }
-        int code = userService.updateTokenByUid(uid, newToken);
+        int code = userService.updateTokenById(uid, newToken);
         if (code == 0) {
             resp.setMsg("更新失败，请稍后重试");
             return new ResponseEntity<>(resp, HttpStatus.OK);
@@ -191,12 +191,12 @@ public class UserFunctionController {
 
         long uid = NumberUtil.getOrDefault(request.getHeader("uid"), -1);
         String token = request.getHeader("token");
-        User user = userService.findUserByUidAndToken(uid, token);
+        User user = userService.findUserByIdAndToken(uid, token);
         if (user == null) {
             resp.setMsg("用户登录信息无效");
             return new ResponseEntity<>(resp, HttpStatus.OK);
         }
-        int code = userService.updateHeaderUrlByUid(uid, header, token);
+        int code = userService.updateHeaderUrlById(uid, header, token);
         if (code == 0) {
             resp.setMsg("更新失败，请稍后重试");
             return new ResponseEntity<>(resp, HttpStatus.OK);
@@ -222,12 +222,12 @@ public class UserFunctionController {
 
         long uid = NumberUtil.getOrDefault(request.getHeader("uid"), -1);
         String token = request.getHeader("token");
-        User user = userService.findUserByUidAndToken(uid, token);
+        User user = userService.findUserByIdAndToken(uid, token);
         if (user == null) {
             resp.setMsg("用户登录信息无效");
             return new ResponseEntity<>(resp, HttpStatus.OK);
         }
-        int code = userService.updateUserDescByUid(uid, desc, token);
+        int code = userService.updateUserDescById(uid, desc, token);
         if (code == 0) {
             resp.setMsg("更新失败，请稍后重试");
             return new ResponseEntity<>(resp, HttpStatus.OK);

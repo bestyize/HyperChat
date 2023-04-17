@@ -9,44 +9,44 @@ import xyz.thewind.user.database.bean.User;
 @Service
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    User findTopByUid(long uid);
+    User findTopById(long uid);
 
     User findTopByUserName(String userName);
 
     User findTopByOpenId(String openId);
 
-    User findTopByUidAndToken(long uid, String token);
+    User findTopByIdAndToken(long id, String token);
 
     User findTopByUserNameAndToken(String userName, String token);
 
     @Modifying
-    @Query("update User set level = :level where uid = :uid")
-    int updateLevelByUid(long uid, int level);
+    @Query("update User set level = :level where id = :id")
+    int updateLevelById(long id, int level);
 
     @Modifying
-    @Query("update User set userName = :userName where uid = :uid and token = :token")
-    int updateUserNameByUid(long uid, String userName, String token);
+    @Query("update User set userName = :userName where id = :id and token = :token")
+    int updateUserNameById(long id, String userName, String token);
 
     @Modifying
     @Query("update User set token = :token where openId = :openId")
     int updateTokenByOpenId(String openId, String token);
 
     @Modifying
-    @Query("update User set token = :token where uid = :uid")
-    int updateTokenByUid(long uid, String token);
+    @Query("update User set token = :token where id = :id")
+    int updateTokenById(long id, String token);
 
 
     @Modifying
-    @Query("update User set headerUrl = :headerUrl where uid = :uid and token = :token")
-    int updateHeaderUrlByUid(long uid, String headerUrl, String token);
+    @Query("update User set headerUrl = :headerUrl where id = :id and token = :token")
+    int updateHeaderUrlById(long id, String headerUrl, String token);
 
     @Modifying
-    @Query("update User set userDesc = :userDesc where uid = :uid and token = :token")
-    int updateUserDescByUid(long uid, String userDesc, String token);
+    @Query("update User set userDesc = :userDesc where id = :id and token = :token")
+    int updateUserDescById(long id, String userDesc, String token);
 
     @Modifying
-    @Query("update User set isVip = :isVip, vipStartTime = :vipStartTime, vipEndTime = :vipEndTime where uid = :uid and token = :token")
-    int updateVipInfoByUid(long uid, boolean isVip, long vipStartTime, long vipEndTime, String token);
+    @Query("update User set isVip = :isVip, vipStartTime = :vipStartTime, vipEndTime = :vipEndTime where id = :id and token = :token")
+    int updateVipInfoById(long id, boolean isVip, long vipStartTime, long vipEndTime, String token);
 
 
 }
