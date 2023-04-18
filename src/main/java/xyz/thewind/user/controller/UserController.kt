@@ -56,8 +56,8 @@ class UserController {
 
     private fun hitMusic(text: String, openId: String): String {
         return when {
-            text.contains("音乐") || text.contains("教程") || text.contains("无名") -> "教程:https://mp.weixin.qq.com/s/-W13vOAK7hicZ6aYq3ifYQ"
-            text.contains("限制") -> "因站点访问量过大，需要限制流量，触发IP限制的时长为6小时，您可以在六小时后重试，或者切换网络改变IP"
+            text.contains("音乐") || text.contains("教程") || text.contains("无名") -> "教程:https://mp.weixin.qq.com/s/-W13vOAK7hicZ6aYq3ifYQ \n官方APP：https://wwzt.lanzoul.com/b05mjysod"
+            text.contains("限制") -> "因站点访问量过大，需要限制流量，触发IP限制的时长为6小时，您可以在六小时后重试，或者切换网络改变IP \n官方APP：https://wwzt.lanzoul.com/b05mjysod"
             text.contains("验证码") -> {
                 var code = rand(100000, 999999).toString()
                 var retryTime = 5
@@ -73,13 +73,13 @@ class UserController {
                 if (user != null) {
                     "您的用户名是:${user.userName},您的密码是:${user.token}"
                 } else {
-                    "您还不是注册用户, 请前往APP注册"
+                    "您还不是注册用户, 请前往APP注册 \n 官方APP：https://wwzt.lanzoul.com/b05mjysod"
                 }
             }
             text.contains("重置密码") -> {
                 val user = userService?.findUserByOpenId(openId)
                 when{
-                    user == null -> "您还不是注册用户, 请前往APP注册"
+                    user == null -> "您还不是注册用户, 请前往APP注册 \n官方APP：https://wwzt.lanzoul.com/b05mjysod"
                     text.length < 10 -> "密码长度太短"
                     text.length >= 10 -> {
                         val token = text.substring(IntRange("重置密码".length, text.length - 1))
@@ -91,10 +91,10 @@ class UserController {
                         }
 
                     }
-                    else -> "您还不是注册用户, 请前往APP注册"
+                    else -> "您还不是注册用户, 请前往APP注册 \n官方APP：https://wwzt.lanzoul.com/b05mjysod"
                 }
             }
-            else -> "QQ群:972084185"
+            else -> "官方APP：https://wwzt.lanzoul.com/b05mjysod \n QQ群:912159500"
         }
     }
 
