@@ -43,6 +43,13 @@ object RecommendTopicServiceHelper {
                 this.desc = "超多二次元美图！"
                 this.leftBottomText = ""
                 this.cover = "https://konachan.net/sample/879cc4ccae6aed97d5829a3c4fd524b2/Konachan.com%20-%20355855%20sample.jpg"
+            },
+            TopicCardItem().apply {
+                this.topicId = TopicId.WALLHAVEN.topic
+                this.title = "壁纸天堂"
+                this.desc = "高清壁纸的天堂"
+                this.leftBottomText = ""
+                this.cover = "https://images.pexels.com/photos/16222753/pexels-photo-16222753.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
             }
         )
 

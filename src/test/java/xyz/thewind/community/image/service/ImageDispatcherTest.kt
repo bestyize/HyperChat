@@ -14,4 +14,10 @@ class ImageDispatcherTest {
 
     }
 
+    @Test
+    fun testWallHaven() {
+        val result = ImageDispatcher.search("", 1, 0, ImageSrc.WALLHAVEN.src)
+        print(GsonUtil.toJson(result))
+    }
+
 }

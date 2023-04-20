@@ -6,6 +6,7 @@ import xyz.thewind.community.image.model.ImageSrc
 import xyz.thewind.community.image.service.impl.konachan.service.KonaChanServiceImpl
 import xyz.thewind.community.image.service.impl.pexels.service.PexelsServiceImpl
 import xyz.thewind.community.image.service.impl.pixbay.service.PixbayServiceImpl
+import xyz.thewind.community.image.service.impl.wallhaven.service.WallHavenServiceImpl
 
 object ImageDispatcher {
 
@@ -18,6 +19,7 @@ object ImageDispatcher {
             ImageSrc.PEXELS.src -> PexelsServiceImpl()
             ImageSrc.PIXBAY.src -> PixbayServiceImpl()
             ImageSrc.KONACHAN.src -> KonaChanServiceImpl()
+            ImageSrc.WALLHAVEN.src -> WallHavenServiceImpl()
             else -> PexelsServiceImpl()
         }
         return service.search(keyword, page, num)
@@ -29,6 +31,7 @@ object ImageDispatcher {
             ImageSrc.PEXELS.src -> PexelsServiceImpl()
             ImageSrc.PIXBAY.src -> PixbayServiceImpl()
             ImageSrc.KONACHAN.src -> KonaChanServiceImpl()
+            ImageSrc.WALLHAVEN.src -> WallHavenServiceImpl()
             else -> PexelsServiceImpl()
         }
         return service.recommendTabs()
