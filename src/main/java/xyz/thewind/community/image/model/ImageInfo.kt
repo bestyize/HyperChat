@@ -15,4 +15,5 @@ class ImageInfo {
     var collections: Long = 0
     var comments: Long = 0
     var likes: Long = 0
+    var downloadExtras = mutableMapOf<String, String>()
 }

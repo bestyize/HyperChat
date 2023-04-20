@@ -4,7 +4,7 @@ import org.jsoup.Jsoup
 import xyz.thewind.community.image.model.ImageInfo
 import xyz.thewind.community.image.model.ImageSrc
 import xyz.thewind.global.util.HttpUtil
-import xyz.thewind.global.util.config.redis.getRedisService
+import xyz.thewind.global.util.config.redis.konaCookie
 
 object KonaChanParser {
 
@@ -13,7 +13,7 @@ object KonaChanParser {
         val requestUrl = "https://konachan.net/post?page=$page&tag=$keyword"
         val list = mutableListOf<ImageInfo>()
         val cookie = try {
-            getRedisService()?.get("kona_chan_cookie") ?: "cf_clearance=u7sxMP5Hj_lbbYEBEcsmvpAdKsgwe8y78IDh2e0f6Ps-1681928037-0-160;"
+            konaCookie ?: "cf_clearance=u7sxMP5Hj_lbbYEBEcsmvpAdKsgwe8y78IDh2e0f6Ps-1681928037-0-160;"
         } catch (_: Exception){
             "cf_clearance=u7sxMP5Hj_lbbYEBEcsmvpAdKsgwe8y78IDh2e0f6Ps-1681928037-0-160;"
         }
@@ -45,6 +45,7 @@ object KonaChanParser {
                         this.height = h
                         this.tags = alt
                         this.pageUrl = pageUrl
+                        this.downloadExtras.putAll(header)
                     })
                 } catch (_: Exception){}
             }
