@@ -26,23 +26,41 @@ class KonaChanServiceImpl : ImageService{
         })
         resp.add(ImageRecommendTab().apply {
             this.src = src
-            this.title = "穿衣"
-            this.query = "dress"
-        })
-        resp.add(ImageRecommendTab().apply {
-            this.src = src
             this.title = "天空"
             this.query = "sky"
         })
         resp.add(ImageRecommendTab().apply {
             this.src = src
-            this.title = "原生"
+            this.title = "长发"
+            this.query = "long_hair"
+        })
+
+        resp.add(ImageRecommendTab().apply {
+            this.src = src
+            this.title = "dress"
+            this.query = "dress"
+        })
+        resp.add(ImageRecommendTab().apply {
+            this.src = src
+            this.title = "original"
             this.query = "original"
         })
 
         resp.add(ImageRecommendTab().apply {
             this.src = src
-            this.title = "校服"
+            this.title = "skirt"
+            this.query = "skirt"
+        })
+
+        resp.add(ImageRecommendTab().apply {
+            this.src = src
+            this.title = "thighhighs"
+            this.query = "thighhighs"
+        })
+
+        resp.add(ImageRecommendTab().apply {
+            this.src = src
+            this.title = "school uniform"
             this.query = "school_uniform"
         })
         resp.add(ImageRecommendTab().apply {
@@ -50,15 +68,27 @@ class KonaChanServiceImpl : ImageService{
             this.title = "breasts"
             this.query = "breasts"
         })
+
         resp.add(ImageRecommendTab().apply {
             this.src = src
-            this.title = "长发"
-            this.query = "long_hair"
+            this.title = "red eyes"
+            this.query = "red_eyes"
         })
         resp.add(ImageRecommendTab().apply {
             this.src = src
-            this.title = "red_eyes"
-            this.query = "red_eyes"
+            this.title = "loli"
+            this.query = "loli"
+        })
+        resp.add(ImageRecommendTab().apply {
+            this.src = src
+            this.title = "short hair"
+            this.query = "short_hair"
+        })
+
+        resp.add(ImageRecommendTab().apply {
+            this.src = src
+            this.title = "white hair"
+            this.query = "white_hair"
         })
 
         return resp

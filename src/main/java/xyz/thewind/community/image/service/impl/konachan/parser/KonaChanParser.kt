@@ -4,22 +4,31 @@ import org.jsoup.Jsoup
 import xyz.thewind.community.image.model.ImageInfo
 import xyz.thewind.community.image.model.ImageSrc
 import xyz.thewind.global.util.HttpUtil
+import xyz.thewind.global.util.config.redis.getRedisService
 import xyz.thewind.global.util.config.redis.konaCookie
 
 object KonaChanParser {
 
+    private const val KONA_COOKIE_KEY = "konachan_cookie"
+    private const val KONA_USER_AGENT = "konachan_user_agent"
+
 
     fun search(keyword: String, page: Int): MutableList<ImageInfo> {
-        val requestUrl = "https://konachan.net/post?page=$page&tag=$keyword"
+        val requestUrl = "https://konachan.net/post?page=$page&tags=$keyword"
         val list = mutableListOf<ImageInfo>()
         val cookie = try {
-            konaCookie ?: "cf_clearance=u7sxMP5Hj_lbbYEBEcsmvpAdKsgwe8y78IDh2e0f6Ps-1681928037-0-160;"
+            getRedisService()?.get(KONA_COOKIE_KEY)?:"cf_clearance=u7sxMP5Hj_lbbYEBEcsmvpAdKsgwe8y78IDh2e0f6Ps-1681928037-0-160;"
         } catch (_: Exception){
             "cf_clearance=u7sxMP5Hj_lbbYEBEcsmvpAdKsgwe8y78IDh2e0f6Ps-1681928037-0-160;"
         }
+        val userAgent = try {
+            getRedisService()?.get(KONA_USER_AGENT)?:"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36 Edg/112.0.1722.39"
+        } catch (_: Exception){
+            "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36 Edg/112.0.1722.39"
+        }
         try {
             val header = mutableMapOf(
-                "user-agent" to "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36 Edg/112.0.1722.39",
+                "user-agent" to userAgent,
                 "cookie" to cookie
             )
             val content = HttpUtil.get(requestUrl, header)

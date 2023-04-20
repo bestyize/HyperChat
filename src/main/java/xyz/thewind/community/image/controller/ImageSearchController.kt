@@ -1,5 +1,6 @@
 package xyz.thewind.community.image.controller
 
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.RequestMapping
@@ -8,9 +9,13 @@ import xyz.thewind.community.image.model.ImageRecommendTabResponse
 import xyz.thewind.community.image.model.ImageSearchResponse
 import xyz.thewind.community.image.model.ImageSrc
 import xyz.thewind.community.image.service.ImageDispatcher
+import xyz.thewind.music.service.RedisService
 
 @RestController
 class ImageSearchController {
+
+    @Autowired
+    private var redisService: RedisService? = null
 
     @RequestMapping("/community/api/picture/search")
     fun search(keyword: String?, page: Int?, num: Int?, src: Int?) :ResponseEntity<ImageSearchResponse>{
@@ -28,5 +33,13 @@ class ImageSearchController {
         resp.code = 0
         resp.data = ImageDispatcher.recommendTabs(src ?: ImageSrc.PEXELS.src)
         return ResponseEntity(resp, HttpStatus.OK)
+    }
+
+    @RequestMapping("/community/api/picture/config/update")
+    fun updateConfig(key: String?, value: String?): ResponseEntity<String> {
+        if (key != null && value != null) {
+            redisService?.set(key, value)
+        }
+        return ResponseEntity("更新成功", HttpStatus.OK)
     }
 }
