@@ -23,12 +23,17 @@ object WallHavenParser {
                     val whStr = it.getElementsByClass("wall-res")[0].text()
                     val w = whStr.replace(" ", "").split("x")[0].toInt()
                     val h = whStr.replace(" ", "").split("x")[1].toInt()
-                    val imageUrl = previewImageUrl.replace("https://th.wallhaven.cc/", "https://w.wallhaven.cc/").replace("/small/", "/full/").replace("/${id}.", "/wallhaven-${id}.")
+                    var imageUrl = previewImageUrl.replace("https://th.wallhaven.cc/", "https://w.wallhaven.cc/").replace("/small/", "/full/").replace("/${id}.", "/wallhaven-${id}.")
+                    if (it.getElementsByClass("png").size > 0) {
+                        imageUrl = imageUrl.replace(".jpg", ".png")
+                    }
                     list.add(ImageInfo().apply {
                         this.src = ImageSrc.WALLHAVEN.src
                         this.id = id
                         this.imageUrl = imageUrl
                         this.previewImageUrl = previewImageUrl
+                        this.previewWidth = 300
+                        this.previewHeight = 200
                         this.pageUrl = pageUrl
                         this.width = w
                         this.height = h
