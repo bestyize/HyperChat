@@ -21,7 +21,7 @@ class KonaChanServiceImpl : ImageService{
         })
         resp.add(ImageRecommendTab().apply {
             this.src = src
-            this.title = "元神"
+            this.title = "动漫"
             this.query = "genshin_impact"
         })
         resp.add(ImageRecommendTab().apply {
@@ -60,12 +60,12 @@ class KonaChanServiceImpl : ImageService{
 
         resp.add(ImageRecommendTab().apply {
             this.src = src
-            this.title = "school uniform"
+            this.title = "Uniform"
             this.query = "school_uniform"
         })
         resp.add(ImageRecommendTab().apply {
             this.src = src
-            this.title = "breasts"
+            this.title = "Nat"
             this.query = "breasts"
         })
 
@@ -76,7 +76,7 @@ class KonaChanServiceImpl : ImageService{
         })
         resp.add(ImageRecommendTab().apply {
             this.src = src
-            this.title = "loli"
+            this.title = "XLabels"
             this.query = "loli"
         })
         resp.add(ImageRecommendTab().apply {

@@ -21,35 +21,35 @@ object RecommendTopicServiceHelper {
                 this.title = "Pexels"
                 this.desc = "超高质量的图片免费下"
                 this.leftBottomText = ""
-                this.cover = "https://s.cn.bing.net/th?id=OHR.KiteDay_ZH-CN7813901578_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&qlt=50"
+                this.cover = "https://thewind.xyz/community/api/picture/res/pexel_cover.jpg"
             },
             TopicCardItem().apply {
                 this.topicId = TopicId.PIXBAY.topic
                 this.title = "Pixbay"
                 this.desc = "来自Pixbay的百万精美图片"
                 this.leftBottomText = ""
-                this.cover = "https://cdn.pixabay.com/photo/2013/04/03/21/25/flower-100263_960_720.jpg"
+                this.cover = "https://thewind.xyz/community/api/picture/res/pixbay_cover.jpg"
             },
             TopicCardItem().apply {
                 this.topicId = TopicId.MAGNET.topic
                 this.title = "磁力社"
                 this.desc = "搜索下载种子"
                 this.leftBottomText = ""
-                this.cover = "https://cdn.pixabay.com/photo/2022/09/22/08/41/forest-7471935_960_720.jpg"
+                this.cover = "https://thewind.xyz/community/api/picture/res/cilishe_cover.jpg"
             },
             TopicCardItem().apply {
                 this.topicId = TopicId.KONACHAN.topic
-                this.title = "二次元"
-                this.desc = "超多二次元美图！"
+                this.title = "Kona"
+                this.desc = "超多动漫美图！"
                 this.leftBottomText = ""
-                this.cover = "https://konachan.net/sample/879cc4ccae6aed97d5829a3c4fd524b2/Konachan.com%20-%20355855%20sample.jpg"
+                this.cover = "https://thewind.xyz/community/api/picture/res/kona_cover.jpg"
             },
             TopicCardItem().apply {
                 this.topicId = TopicId.WALLHAVEN.topic
                 this.title = "壁纸天堂"
                 this.desc = "高清壁纸的天堂"
                 this.leftBottomText = ""
-                this.cover = "https://images.pexels.com/photos/16222753/pexels-photo-16222753.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                this.cover = "https://thewind.xyz/community/api/picture/res/wallhaven_cover.jpg"
             }
         )
 
