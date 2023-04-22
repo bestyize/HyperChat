@@ -3,6 +3,7 @@ package xyz.thewind.community.image.service
 import xyz.thewind.community.image.model.ImageInfo
 import xyz.thewind.community.image.model.ImageRecommendTab
 import xyz.thewind.community.image.model.ImageSrc
+import xyz.thewind.community.image.service.impl.hubble.service.HubbleServiceImpl
 import xyz.thewind.community.image.service.impl.konachan.service.KonaChanServiceImpl
 import xyz.thewind.community.image.service.impl.pexels.service.PexelsServiceImpl
 import xyz.thewind.community.image.service.impl.pixbay.service.PixbayServiceImpl
@@ -20,6 +21,7 @@ object ImageDispatcher {
             ImageSrc.PIXBAY.src -> PixbayServiceImpl()
             ImageSrc.KONACHAN.src -> KonaChanServiceImpl()
             ImageSrc.WALLHAVEN.src -> WallHavenServiceImpl()
+            ImageSrc.HUBBLE.src -> HubbleServiceImpl()
             else -> PexelsServiceImpl()
         }
         return service.search(keyword, page, num)
@@ -32,6 +34,7 @@ object ImageDispatcher {
             ImageSrc.PIXBAY.src -> PixbayServiceImpl()
             ImageSrc.KONACHAN.src -> KonaChanServiceImpl()
             ImageSrc.WALLHAVEN.src -> WallHavenServiceImpl()
+            ImageSrc.HUBBLE.src -> HubbleServiceImpl()
             else -> PexelsServiceImpl()
         }
         return service.recommendTabs()

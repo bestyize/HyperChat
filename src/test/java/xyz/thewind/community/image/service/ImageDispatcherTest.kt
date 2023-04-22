@@ -20,4 +20,11 @@ class ImageDispatcherTest {
         print(GsonUtil.toJson(result))
     }
 
+    @Test
+    fun testHubble() {
+        val result = ImageDispatcher.search("", 1, 0, ImageSrc.HUBBLE.src)
+        print(GsonUtil.toJson(result))
+    }
+
+
 }

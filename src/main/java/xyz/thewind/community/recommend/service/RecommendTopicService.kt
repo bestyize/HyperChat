@@ -38,6 +38,13 @@ object RecommendTopicServiceHelper {
                 this.cover = "https://thewind.xyz/community/api/picture/res/cilishe_cover.jpg"
             },
             TopicCardItem().apply {
+                this.topicId = TopicId.HUBBLE.topic
+                this.title = "璀璨星河"
+                this.desc = "欧洲航空局拍摄的震撼宇宙图片"
+                this.leftBottomText = ""
+                this.cover = "https://cdn.spacetelescope.org/archives/images/screen/heic1501a.jpg"
+            },
+            TopicCardItem().apply {
                 this.topicId = TopicId.KONACHAN.topic
                 this.title = "Kona"
                 this.desc = "超多动漫美图！"
