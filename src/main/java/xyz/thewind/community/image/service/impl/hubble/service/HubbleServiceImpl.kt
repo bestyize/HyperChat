@@ -16,7 +16,7 @@ class HubbleServiceImpl : ImageService {
             ImageRecommendTab().apply {
                 this.src = ImageSrc.HUBBLE.src
                 this.title = "排行榜"
-                this.query = "/images/archive/category/galaxies/page/"
+                this.query = "/images/viewall/page/"
                 this.num = 20
                 this.page = 1
             },
@@ -72,14 +72,14 @@ class HubbleServiceImpl : ImageService {
             ImageRecommendTab().apply {
                 this.src = ImageSrc.HUBBLE.src
                 this.title = "黑洞"
-                this.query = "/images/archive/category/blackholes/"
+                this.query = "/images/archive/category/blackholes/page/"
                 this.num = 20
                 this.page = 1
             },
             ImageRecommendTab().apply {
                 this.src = ImageSrc.HUBBLE.src
                 this.title = "太阳系"
-                this.query = "/images/archive/category/solarsystem/"
+                this.query = "/images/archive/category/solarsystem/page/"
                 this.num = 20
                 this.page = 1
             },
