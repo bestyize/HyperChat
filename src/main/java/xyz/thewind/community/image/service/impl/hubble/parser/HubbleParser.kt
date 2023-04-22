@@ -11,7 +11,7 @@ object HubbleParser {
 
         try {
             // https://esahubble.org/images/archive/category/galaxies/page/2/
-            val api = "https://esahubble.org/images/viewall/page/$page/"
+            val api = "https://esahubble.org$keyword$page/"
             val content = HttpUtil.get(api)
             val data = "{\"list\":["+content.substringAfter("var images = [")
                 .substringBefore("];")
