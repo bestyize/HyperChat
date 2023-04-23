@@ -4,16 +4,11 @@ import xyz.thewind.community.image.model.ImageInfo
 import xyz.thewind.community.image.model.ImageRecommendTab
 import xyz.thewind.community.image.model.ImageSrc
 import xyz.thewind.community.image.service.ImageService
-import xyz.thewind.community.image.service.impl.pexels.model.PexelsSearchResponse
 import xyz.thewind.community.image.service.impl.pexels.model.PexelsWebSearchResponse
 import xyz.thewind.global.util.HttpUtil
 import xyz.thewind.music.util.GsonUtil
 import xyz.thewind.torrent.datasource.def.urlEncode
 import java.text.SimpleDateFormat
-import java.time.Instant
-import java.time.ZoneOffset
-import java.time.format.DateTimeFormatter
-import java.util.logging.SimpleFormatter
 
 class PexelsServiceImpl : ImageService {
     override fun search(keyword: String, page: Int, num: Int): MutableList<ImageInfo> {
@@ -82,21 +77,24 @@ class PexelsServiceImpl : ImageService {
     }
 
 
-    private fun doSearch(keyword: String, page: Int, num: Int): MutableList<ImageInfo>  {
-        val timestamp = System.currentTimeMillis() - (num-1) * 86400000L * 5
+    private fun doSearch(keyword: String, page: Int, num: Int): MutableList<ImageInfo> {
+        val timestamp = System.currentTimeMillis() - (page - 1) * 86400000L * 5
         val formatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.sss'Z'")
         val seed = formatter.format(timestamp).urlEncode()
-        val sApi = "https://www.pexels.com/zh-cn/api/v3/search/photos?page=$page&per_page=$num&query=" + keyword.urlEncode()
+        val sApi =
+            "https://www.pexels.com/zh-cn/api/v3/search/photos?page=$page&per_page=$num&query=" + keyword.urlEncode()
         val rApi = "https://www.pexels.com/zh-cn/api/v2/feed?seed=$seed&per_page=12&seo_tags=true"
         val api = if (keyword == "recommend") rApi else sApi
         val res = mutableListOf<ImageInfo>()
         try {
-            val content = HttpUtil.get(api, mapOf(
-                "secret-key" to "H2jk9uKnhRmL6WPwh89zBezWvr"
-            ))
+            val content = HttpUtil.get(
+                api, mapOf(
+                    "secret-key" to "H2jk9uKnhRmL6WPwh89zBezWvr"
+                )
+            )
             val resp = GsonUtil.fromJson(content, PexelsWebSearchResponse::class.java)
-            resp?:return res
-            resp.data.forEach {
+            resp ?: return res
+            resp.data.filter { it.type == "photo" }.forEach {
                 res.add(ImageInfo().apply {
                     this.src = ImageSrc.PEXELS.src
                     this.id = it.id.toString()
