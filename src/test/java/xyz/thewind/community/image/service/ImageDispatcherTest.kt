@@ -8,6 +8,13 @@ import xyz.thewind.music.util.GsonUtil
 class ImageDispatcherTest {
 
     @Test
+    fun testPexels() {
+        val result = ImageDispatcher.search("recommend", 1, 0, ImageSrc.PEXELS.src)
+        print(GsonUtil.toJson(result))
+
+    }
+
+    @Test
     fun testKonaChan() {
         val result = ImageDispatcher.search("", 1, 0, ImageSrc.KONACHAN.src)
         print(GsonUtil.toJson(result))
