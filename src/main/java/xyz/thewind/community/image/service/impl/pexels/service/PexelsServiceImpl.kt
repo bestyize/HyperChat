@@ -9,6 +9,7 @@ import xyz.thewind.community.image.service.impl.pexels.model.PexelsWebSearchResp
 import xyz.thewind.global.util.HttpUtil
 import xyz.thewind.music.util.GsonUtil
 import xyz.thewind.torrent.datasource.def.urlEncode
+import java.time.Instant
 
 class PexelsServiceImpl : ImageService {
     override fun search(keyword: String, page: Int, num: Int): MutableList<ImageInfo> {
@@ -26,7 +27,7 @@ class PexelsServiceImpl : ImageService {
         resp.add(ImageRecommendTab().apply {
             this.src = src
             this.title = "推荐"
-            this.query = "精彩"
+            this.query = "recommend"
         })
         resp.add(ImageRecommendTab().apply {
             this.src = src
@@ -78,7 +79,9 @@ class PexelsServiceImpl : ImageService {
 
 
     private fun doSearch(keyword: String, page: Int, num: Int): MutableList<ImageInfo>  {
-        val api = "https://www.pexels.com/zh-cn/api/v3/search/photos?page=$page&per_page=$num&query=" + keyword.urlEncode()
+        val sApi = "https://www.pexels.com/zh-cn/api/v3/search/photos?page=$page&per_page=$num&query=" + keyword.urlEncode()
+        val rApi = "https://www.pexels.com/zh-cn/api/v2/feed?seed=${Instant.now()}&per_page=$num"
+        val api = if (keyword == "recommend") rApi else sApi
         val res = mutableListOf<ImageInfo>()
         try {
             val content = HttpUtil.get(api, mapOf(
