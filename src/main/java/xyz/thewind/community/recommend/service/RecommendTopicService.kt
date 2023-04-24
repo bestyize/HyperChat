@@ -8,7 +8,7 @@ import xyz.thewind.community.recommend.bean.TopicListResponse
 
 object RecommendTopicServiceHelper {
     fun loadDefaultRecommendTopicList(): TopicListResponse {
-        val list = listOf(
+        val list = mutableListOf(
             TopicCardItem().apply {
                 this.title = "无名音乐"
                 this.desc = "无损音乐在线下"
@@ -57,11 +57,19 @@ object RecommendTopicServiceHelper {
                 this.desc = "高清壁纸的天堂"
                 this.leftBottomText = ""
                 this.cover = "https://thewind.xyz/community/api/picture/res/wallhaven_cover.jpg"
+            },
+            TopicCardItem().apply {
+                this.topicId = TopicId.UNSPLASH.topic
+                this.title = "Unsplash"
+                this.desc = "各式各样精彩图片"
+                this.leftBottomText = ""
+                this.cover = "https://images.unsplash.com/photo-1540554827922-41d1fe9a7a40?ixlib=rb-4.0.3&q=85&fm=jpg&crop=entropy&cs=srgb&dl=alexander-krivitskiy-PoogTvXLv8U-unsplash.jpg&w=640"
             }
         )
 
+
         val data = TopicCardData().apply {
-            this.aspectRadio = 1.6f
+            this.aspectRadio = 1.2f
             this.cardList.addAll(list)
             this.columnCount = 2
 

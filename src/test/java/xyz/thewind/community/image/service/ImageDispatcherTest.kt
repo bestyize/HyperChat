@@ -33,5 +33,11 @@ class ImageDispatcherTest {
         print(GsonUtil.toJson(result))
     }
 
+    @Test
+    fun testUnSplash() {
+        val result = ImageDispatcher.search("/napi/topics/nature/photos?xp=search-quality-boosting%3Acontrol", 1, 12, ImageSrc.UNSPLASH.src)
+        print(GsonUtil.toJson(result))
+    }
+
 
 }
