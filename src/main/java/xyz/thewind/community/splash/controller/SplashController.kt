@@ -37,8 +37,8 @@ class SplashController {
                 this.actionType = ButtonActionType.NONE
             }
             resp.data = NotifyData().apply {
-                this.type = NotifyType.APP_UPDATE
-                this.content = "发现新版本 1.3.0，请升级"
+                this.type = NotifyType.COMMON
+                this.content = "发现新版本 1.3.0,新增宇宙类型壁纸库、Unsplash资源库等，优化加载体验，请升级"
                 this.cancelable = true
                 this.rightButton = rightButton
                 this.leftButton = leftButton
