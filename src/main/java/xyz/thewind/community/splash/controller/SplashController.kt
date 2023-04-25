@@ -35,7 +35,7 @@ class SplashController {
             resp.data = NotifyData().apply {
                 this.type = NotifyType.APP_UPDATE
                 this.content = "发现新版本 1.3.0，请升级"
-                this.cancelable = false
+                this.cancelable = true
                 this.rightButton = rightButton
             }
         }
