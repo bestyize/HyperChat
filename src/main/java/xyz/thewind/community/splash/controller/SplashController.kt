@@ -30,7 +30,7 @@ class SplashController {
             val rightButton = ButtonData().apply {
                 this.text = "去升级"
                 this.actionType = ButtonActionType.OUTER_JUMP
-                this.actionUrl = "https://thewind.xyz/app"
+                this.actionUrl = "https://wwzt.lanzoul.com/b05mjysod"
             }
             val leftButton = ButtonData().apply {
                 this.text = "暂不升级"
