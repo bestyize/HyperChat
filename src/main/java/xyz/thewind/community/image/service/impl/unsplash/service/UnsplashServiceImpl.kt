@@ -18,56 +18,56 @@ class UnsplashServiceImpl: ImageService {
         return mutableListOf(
             ImageRecommendTab().apply {
                 this.title = "推荐"
-                this.query == "recommend"
+                this.query = "recommend"
                 this.src = ImageSrc.UNSPLASH.src
                 this.num = 12
                 this.page = 1
             },
             ImageRecommendTab().apply {
                 this.title = "自然"
-                this.query == "/napi/topics/nature/photos?xp=search-quality-boosting%3Acontrol"
+                this.query = "/napi/topics/nature/photos?xp=search-quality-boosting%3Acontrol"
                 this.src = ImageSrc.UNSPLASH.src
                 this.num = 12
                 this.page = 1
             },
             ImageRecommendTab().apply {
                 this.title = "旅行"
-                this.query == "/napi/topics/travel/photos?xp=search-quality-boosting%3Acontrol"
+                this.query = "/napi/topics/travel/photos?xp=search-quality-boosting%3Acontrol"
                 this.src = ImageSrc.UNSPLASH.src
                 this.num = 20
                 this.page = 1
             },
             ImageRecommendTab().apply {
                 this.title = "建筑&室内"
-                this.query == "/napi/topics/architecture-interior/photos?xp=search-quality-boosting%3Acontrol"
+                this.query = "/napi/topics/architecture-interior/photos?xp=search-quality-boosting%3Acontrol"
                 this.src = ImageSrc.UNSPLASH.src
                 this.num = 20
                 this.page = 1
             },
             ImageRecommendTab().apply {
                 this.title = "街道摄影"
-                this.query == "/napi/topics/street-photography/photos?xp=search-quality-boosting%3Acontrol"
+                this.query = "/napi/topics/street-photography/photos?xp=search-quality-boosting%3Acontrol"
                 this.src = ImageSrc.UNSPLASH.src
                 this.num = 20
                 this.page = 1
             },
             ImageRecommendTab().apply {
                 this.title = "电影质感"
-                this.query == "/napi/topics/film/photos?xp=search-quality-boosting%3Acontrol"
+                this.query = "/napi/topics/film/photos?xp=search-quality-boosting%3Acontrol"
                 this.src = ImageSrc.UNSPLASH.src
                 this.num = 20
                 this.page = 1
             },
             ImageRecommendTab().apply {
                 this.title = "运动"
-                this.query == "/napi/topics/athletics/photos?xp=search-quality-boosting%3Acontrol"
+                this.query = "/napi/topics/athletics/photos?xp=search-quality-boosting%3Acontrol"
                 this.src = ImageSrc.UNSPLASH.src
                 this.num = 20
                 this.page = 1
             },
             ImageRecommendTab().apply {
                 this.title = "文化艺术"
-                this.query == "/napi/topics/arts-culture/photos?xp=search-quality-boosting%3Acontrol"
+                this.query = "/napi/topics/arts-culture/photos?xp=search-quality-boosting%3Acontrol"
                 this.src = ImageSrc.UNSPLASH.src
                 this.num = 20
                 this.page = 1

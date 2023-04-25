@@ -26,7 +26,7 @@ class SplashController {
         val versionStr = httpServletRequest.getHeader("versionCode")
         val versionCode = NumberUtil.getOrDefault(versionStr, 0)
         val resp = StartCheckResponse()
-        if (versionCode < 100) {
+        if (versionCode < 120) {
             val rightButton = ButtonData().apply {
                 this.text = "去升级"
                 this.actionType = ButtonActionType.OUTER_JUMP
@@ -34,7 +34,7 @@ class SplashController {
             }
             resp.data = NotifyData().apply {
                 this.type = NotifyType.APP_UPDATE
-                this.content = "发现新版本，请升级"
+                this.content = "发现新版本 1.3.0，请升级"
                 this.cancelable = false
                 this.rightButton = rightButton
             }
