@@ -32,11 +32,16 @@ class SplashController {
                 this.actionType = ButtonActionType.OUTER_JUMP
                 this.actionUrl = "https://thewind.xyz/app"
             }
+            val leftButton = ButtonData().apply {
+                this.text = "暂不升级"
+                this.actionType = ButtonActionType.NONE
+            }
             resp.data = NotifyData().apply {
                 this.type = NotifyType.APP_UPDATE
                 this.content = "发现新版本 1.3.0，请升级"
                 this.cancelable = true
                 this.rightButton = rightButton
+                this.leftButton = leftButton
             }
         }
         return ResponseEntity(resp, HttpStatus.OK)
